@@ -876,5 +876,4 @@ ScriptsOnlyBuild:
   platform: 20
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/Game Design PC 1/OneDrive/Documents/GitHub/Planet-Game/Planet
-    Game
+  playerPath: C:/Users/Game Design PC 1/OneDrive/Documents/GitHub/Planet-Game

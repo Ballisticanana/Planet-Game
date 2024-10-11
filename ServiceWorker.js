@@ -1,9 +1,9 @@
 const cacheName = "Ballisticanana :3-Planet Game-0.1";
 const contentToCache = [
-    "Build/Planet Game.loader.js",
-    "Build/Planet Game.framework.js.unityweb",
-    "Build/Planet Game.data.unityweb",
-    "Build/Planet Game.wasm.unityweb",
+    "Build/Planet-Game.loader.js",
+    "Build/Planet-Game.framework.js.unityweb",
+    "Build/Planet-Game.data.unityweb",
+    "Build/Planet-Game.wasm.unityweb",
     "TemplateData/style.css"
 
 ];
