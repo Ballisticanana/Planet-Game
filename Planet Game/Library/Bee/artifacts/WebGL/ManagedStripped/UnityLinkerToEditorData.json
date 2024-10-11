@@ -222,12 +222,6 @@
             "icon": null
           },
           {
-            "name": "MonoScript",
-            "scenes": [],
-            "dependencyType": 1,
-            "icon": null
-          },
-          {
             "name": "NamedObject",
             "scenes": [
               "Assets/Scenes/SampleScene.unity"
@@ -331,12 +325,6 @@
           },
           {
             "name": "TagManager",
-            "scenes": [],
-            "dependencyType": 1,
-            "icon": null
-          },
-          {
-            "name": "TextAsset",
             "scenes": [],
             "dependencyType": 1,
             "icon": null

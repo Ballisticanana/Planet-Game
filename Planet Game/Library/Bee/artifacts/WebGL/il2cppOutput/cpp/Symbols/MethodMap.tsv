@@ -5967,9 +5967,6 @@ Enumerator_Dispose_m184D61D2D15DFF667D17BE95C7871FE560F2D2B1_gshared	System.Void
 Enumerator_MoveNext_m44E79A20B0B6B10A75C01C4CA0935A4F2FD2E00F_gshared	System.Boolean System.Collections.Generic.List`1/Enumerator<System.TypeIdentifier>::MoveNext()	mscorlib
 Enumerator_get_Current_mFEA960AD53459B86CEF0C61DDE2F728D5C9B014B_gshared	T System.Collections.Generic.List`1/Enumerator<System.TypeIdentifier>::get_Current()	mscorlib
 EqualityComparer_1__ctor_m9D692A2446D3F93F9042D7CAC625E36F01658C0C_gshared	System.Void System.Collections.Generic.EqualityComparer`1<System.String>::.ctor()	mscorlib
-KeyValuePair_2__ctor_mAB9B11258369847D02D8A4600F3F4518BE09B822_gshared	System.Void System.Collections.Generic.KeyValuePair`2<System.Byte[],System.Text.Encoding>::.ctor(TKey,TValue)	mscorlib
-KeyValuePair_2_get_Key_mAE38941DFB83CFA0D219CF4C92683BC01B684D0C_gshared	TKey System.Collections.Generic.KeyValuePair`2<System.Byte[],System.Text.Encoding>::get_Key()	mscorlib
-KeyValuePair_2_get_Value_mD26BF0989A64BECE386550C6CD4580043ECB880A_gshared	TValue System.Collections.Generic.KeyValuePair`2<System.Byte[],System.Text.Encoding>::get_Value()	mscorlib
 KeyValuePair_2_get_Key_m654BCCAE2F20CB11D8E8C2D2C886A0C8A13EB1C4_gshared	TKey System.Collections.Generic.KeyValuePair`2<System.String,System.String>::get_Key()	mscorlib
 KeyValuePair_2_get_Value_m7345512A32CB4DCAA0643050B18DC8DCD71B927A_gshared	TValue System.Collections.Generic.KeyValuePair`2<System.String,System.String>::get_Value()	mscorlib
 ListBuilder_1__ctor_m3ACA763449137FE4AEE54773CACA376AE6119716_gshared	System.Void System.RuntimeType/ListBuilder`1<System.Reflection.ConstructorInfo>::.ctor(System.Int32)	mscorlib
@@ -10417,10 +10414,8 @@ EncodingNLS_GetDecoder_mB3017B66830B583559677AFC03B2252FED90BA75	System.Text.Dec
 EncodingNLS_GetEncoder_mAAA9453E88791D283A64F15C5672671ABB11EB93	System.Text.Encoder System.Text.EncodingNLS::GetEncoder()	mscorlib
 NULL	System.Text.Encoding System.Text.EncodingProvider::GetEncoding(System.String)	mscorlib
 NULL	System.Text.Encoding System.Text.EncodingProvider::GetEncoding(System.Int32)	mscorlib
-EncodingProvider_GetEncoding_mAD38ABC5B3618A7A1AA84CC8181DD2783C362226	System.Text.Encoding System.Text.EncodingProvider::GetEncoding(System.Int32,System.Text.EncoderFallback,System.Text.DecoderFallback)	mscorlib
 EncodingProvider_GetEncodingFromProvider_m88843B78EEFFC1DD36E355E0BB0D112E0462E899	System.Text.Encoding System.Text.EncodingProvider::GetEncodingFromProvider(System.Int32)	mscorlib
 EncodingProvider_GetEncodingFromProvider_mF460286F71D502765B54461DBBD1CAB3AF76C316	System.Text.Encoding System.Text.EncodingProvider::GetEncodingFromProvider(System.String)	mscorlib
-EncodingProvider_GetEncodingFromProvider_m22209A3D59B859F8561B7A77A82B226AEFF13DCA	System.Text.Encoding System.Text.EncodingProvider::GetEncodingFromProvider(System.Int32,System.Text.EncoderFallback,System.Text.DecoderFallback)	mscorlib
 EncodingProvider__cctor_mB235B6FD67DE9EE5A1880DB81D00AB7EAB3CF1D9	System.Void System.Text.EncodingProvider::.cctor()	mscorlib
 Latin1Encoding__ctor_mC793014FDAFAF387948473135C8A97D26F58C46E	System.Void System.Text.Latin1Encoding::.ctor()	mscorlib
 Latin1Encoding__ctor_mC48FE0F2C3F5D0B1F86CE4CA224DE1E48F78DE43	System.Void System.Text.Latin1Encoding::.ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)	mscorlib
@@ -10660,7 +10655,6 @@ Encoding_DeserializeEncoding_mDC8B5D7DEB6E8425EFBE396AC2C0BBCDC987D675	System.Vo
 Encoding_SerializeEncoding_m8B7ACAE1D9F934B40F9A631FA8741C7D5587E3A3	System.Void System.Text.Encoding::SerializeEncoding(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)	mscorlib
 Encoding_get_InternalSyncObject_mD17D24A175E48C72D756538C7805175B43F71F77	System.Object System.Text.Encoding::get_InternalSyncObject()	mscorlib
 Encoding_GetEncoding_mDCB76EE580ABB16C7DB70CEB6E184578441BE508	System.Text.Encoding System.Text.Encoding::GetEncoding(System.Int32)	mscorlib
-Encoding_GetEncoding_m8C24242BD2B782DA33BBA33A63A3EA081AC733E7	System.Text.Encoding System.Text.Encoding::GetEncoding(System.Int32,System.Text.EncoderFallback,System.Text.DecoderFallback)	mscorlib
 Encoding_GetEncoding_m979B224460094E241BD5C283BE279886664C9187	System.Text.Encoding System.Text.Encoding::GetEncoding(System.String)	mscorlib
 Encoding_GetPreamble_mAB2FAB32F3CA1340D882AA05F79F572235830127	System.Byte[] System.Text.Encoding::GetPreamble()	mscorlib
 Encoding_get_Preamble_m6EF80083E1FFBB1392752CBD4E25F667DDB9F67D	System.ReadOnlySpan`1<System.Byte> System.Text.Encoding::get_Preamble()	mscorlib
@@ -16399,11 +16393,6 @@ UnityException__ctor_m2FFB2690639A7421DA5DBFC40091AB23D87EA90F	System.Void Unity
 UnityException__ctor_mF8A65C9C71A1E0DE6A3224467040765901959312	System.Void UnityEngine.UnityException::.ctor(System.String)	UnityEngine.CoreModule
 MissingReferenceException__ctor_m9A8445A472E11453B6C6C93319A314179C363E5A	System.Void UnityEngine.MissingReferenceException::.ctor()	UnityEngine.CoreModule
 MissingReferenceException__ctor_m38AAD807B4CA850C73C5CAEC30ACE86628D94291	System.Void UnityEngine.MissingReferenceException::.ctor(System.String)	UnityEngine.CoreModule
-TextAsset_get_bytes_m244B31755642C9623B570FC96B9A04523B1E5178	System.Byte[] UnityEngine.TextAsset::get_bytes()	UnityEngine.CoreModule
-TextAsset_get_text_m36846042E3CF3D9DD337BF3F8B2B1902D10C8FD9	System.String UnityEngine.TextAsset::get_text()	UnityEngine.CoreModule
-TextAsset_ToString_m6A506652E11BF9679E6BE931EA2844035FF68923	System.String UnityEngine.TextAsset::ToString()	UnityEngine.CoreModule
-TextAsset_DecodeString_m3345EAF0DE3FE4AAF99F105269E0B83C528198D9	System.String UnityEngine.TextAsset::DecodeString(System.Byte[])	UnityEngine.CoreModule
-EncodingUtility__cctor_m15A59251290A2D2B0CD00F635C7C30F3B033A40B	System.Void UnityEngine.TextAsset/EncodingUtility::.cctor()	UnityEngine.CoreModule
 UnhandledExceptionHandler_RegisterUECatcher_mDBA57543CC57B4265B7847FE9F4E51125FE5F61F	System.Void UnityEngine.UnhandledExceptionHandler::RegisterUECatcher()	UnityEngine.CoreModule
 U3CU3Ec__cctor_m98D2C4143206DF565508D9D1A8FB0C38851DA96A	System.Void UnityEngine.UnhandledExceptionHandler/<>c::.cctor()	UnityEngine.CoreModule
 U3CU3Ec__ctor_mFC700DE43CA4803F7317D49C21D6010E21E4C40D	System.Void UnityEngine.UnhandledExceptionHandler/<>c::.ctor()	UnityEngine.CoreModule

@@ -576,14 +576,6 @@ void RegisterAllStrippedInternalCalls()
 
 	//End Registrations for type : UnityEngine.SystemInfo
 
-	//Start Registrations for type : UnityEngine.TextAsset
-
-		//System.Byte[] UnityEngine.TextAsset::get_bytes()
-		void Register_UnityEngine_TextAsset_get_bytes();
-		Register_UnityEngine_TextAsset_get_bytes();
-
-	//End Registrations for type : UnityEngine.TextAsset
-
 	//Start Registrations for type : UnityEngine.Texture2DArray
 
 		//System.Boolean UnityEngine.Texture2DArray::Internal_CreateImpl(UnityEngine.Texture2DArray,System.Int32,System.Int32,System.Int32,System.Int32,UnityEngine.Experimental.Rendering.GraphicsFormat,UnityEngine.TextureColorSpace,UnityEngine.Experimental.Rendering.TextureCreationFlags)
