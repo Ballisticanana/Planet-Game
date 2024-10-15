@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WeakEnemyScripts : MonoBehaviour
 {
+    //another test
     private Rigidbody enemyRb;
     public Vector3 enemyLocal;
 
