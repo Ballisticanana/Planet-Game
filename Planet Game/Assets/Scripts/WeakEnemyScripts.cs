@@ -56,6 +56,7 @@ public class WeakEnemyScripts : MonoBehaviour
         float saveEnemyV = enemyRb.velocity.magnitude;
         enemyRb.velocity = Vector3.zero;
         enemyRb.isKinematic = true;
+        //see what happens when player doesny turn off
         playerRb.isKinematic = true;
         spawnManager.ClashImpact((playerRb.transform.position + enemyRb.transform.position)/2);
         yield return new WaitForSeconds(0.25f);
