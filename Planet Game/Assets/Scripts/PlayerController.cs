@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     //Player Body
     //Test
+    //Update test
     private Rigidbody playerRb;
 
     //Player controlls
