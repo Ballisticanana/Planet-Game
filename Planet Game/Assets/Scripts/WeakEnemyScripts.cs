@@ -4,25 +4,23 @@ using UnityEngine;
 
 public class WeakEnemyScripts : MonoBehaviour
 {
-    //another test
     private Rigidbody enemyRb;
     public Vector3 enemyLocal;
-
     private GameObject player;
     private Rigidbody playerRb;
     public Vector3 playerLocal;
     private Vector3 awayFromPlayer;
-
-    //Enemy 0 name: Basic Ball
     public float enemy0Speed = 1.0f;
     public float enemyV;
-
-    // Start is called before the first frame update
+    private bool enemyFroze = false;
+    public ParticleSystem clashImpact;
+    private SpawnManager spawnManager;
     void Start()
     {
         enemyRb = GetComponent<Rigidbody>();
         player = GameObject.Find("Player");
         playerRb = GameObject.Find("Player").GetComponent<Rigidbody>();
+        spawnManager = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
     }
 
     // Update is called once per frame
@@ -42,7 +40,7 @@ public class WeakEnemyScripts : MonoBehaviour
             float enemyV = enemyRb.velocity.magnitude;
             Debug.Log(enemyV);
 
-            if (enemyV > 3)
+            if (enemyV > 25)
             {
                 StartCoroutine(ImpactFreeze());
             }else
@@ -54,11 +52,15 @@ public class WeakEnemyScripts : MonoBehaviour
 
     IEnumerator ImpactFreeze()
     {
-        Debug.Log("test");
+        Vector3 saveAwayFromPlayer = transform.position - playerRb.gameObject.transform.position;
+        float saveEnemyV = enemyRb.velocity.magnitude;
         enemyRb.velocity = Vector3.zero;
-        playerRb.velocity = Vector3.zero;
-        yield return new WaitForSeconds(1);
-        Debug.Log("riz");
-        enemyRb.AddForce(Vector3.up * 10, ForceMode.Impulse);
+        enemyRb.isKinematic = true;
+        playerRb.isKinematic = true;
+        spawnManager.ClashImpact((playerRb.transform.position + enemyRb.transform.position)/2);
+        yield return new WaitForSeconds(0.25f);
+        enemyRb.isKinematic = false;
+        playerRb.isKinematic = false;
+        enemyRb.AddForce(saveAwayFromPlayer * saveEnemyV * 0.5f, ForceMode.Impulse);
     }
 }
