@@ -9,16 +9,20 @@ public class WeakEnemyScripts : MonoBehaviour
     public Vector3 enemyLocal;
 
     private GameObject player;
+    private Rigidbody playerRb;
     public Vector3 playerLocal;
+    private Vector3 awayFromPlayer;
 
     //Enemy 0 name: Basic Ball
     public float enemy0Speed = 1.0f;
+    public float enemyV;
 
     // Start is called before the first frame update
     void Start()
     {
         enemyRb = GetComponent<Rigidbody>();
         player = GameObject.Find("Player");
+        playerRb = GameObject.Find("Player").GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -33,7 +37,28 @@ public class WeakEnemyScripts : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Smacked");
+            Rigidbody playerRb = collision.gameObject.GetComponent<Rigidbody>();
+            Vector3 awayFromPlayer = transform.position - collision.gameObject.transform.position;
+            float enemyV = enemyRb.velocity.magnitude;
+            Debug.Log(enemyV);
+
+            if (enemyV > 3)
+            {
+                StartCoroutine(ImpactFreeze());
+            }else
+            {
+                enemyRb.AddForce(awayFromPlayer * 1.5f, ForceMode.Impulse);
+            }
         }
+    }
+
+    IEnumerator ImpactFreeze()
+    {
+        Debug.Log("test");
+        enemyRb.velocity = Vector3.zero;
+        playerRb.velocity = Vector3.zero;
+        yield return new WaitForSeconds(1);
+        Debug.Log("riz");
+        enemyRb.AddForce(Vector3.up * 10, ForceMode.Impulse);
     }
 }
