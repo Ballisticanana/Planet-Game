@@ -28,4 +28,12 @@ public class WeakEnemyScripts : MonoBehaviour
         enemyLocal = new Vector3(transform.position.x, 0, transform.position.z);
         enemyRb.AddForce((playerLocal - enemyLocal).normalized * enemy0Speed * Time.deltaTime);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Smacked");
+        }
+    }
 }
