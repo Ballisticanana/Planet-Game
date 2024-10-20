@@ -1,44 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class SpawnManager : MonoBehaviour
 {
     public GameObject impact;
-    public GameObject[] particlePool;
-    private int spawnQueue = 0;
-    private int elseCount = 0;
+    public List<GameObject> particlePool;
+    public int particleTotal = 1;
+    public int spawnQueue = 0;
+    public int activeSum = 0;
+    private Vector3 savedImpactPoint;
 
-    public void ClashImpact(Vector3 impactPoint)
+    public void ClashImpactRetrieve(Vector3 impactPoint)
     {
-        if (spawnQueue == particlePool.Length)
+        savedImpactPoint=impactPoint;
+        if (spawnQueue == particleTotal)
         {
             spawnQueue = 0;
         }
         if (particlePool[spawnQueue].activeSelf == false)
         {
-            particlePool[spawnQueue].transform.position = impactPoint;
+            StartCoroutine(ClashImpactReturn(spawnQueue));
+            particlePool[spawnQueue].transform.position = savedImpactPoint;
             particlePool[spawnQueue].SetActive(true);
+            activeSum++;
             spawnQueue++;
-            elseCount = 0;
-        } else if (elseCount < particlePool.Length)
+        }
+        else if(activeSum < particleTotal)
         {
             spawnQueue++;
-            ClashImpact(impactPoint);
-            elseCount++;
+            ClashImpactRetrieve(savedImpactPoint);
         }
         else
         {
-            particlePool[particlePool.Length] = Instantiate(impact);
-            elseCount = 0;
-            ClashImpact(impactPoint);
+            particlePool.Add(GameObject.Instantiate(impact, impactPoint, Quaternion.identity));
+            particleTotal++;
+            spawnQueue++;
+            activeSum++;
+            particlePool[spawnQueue].SetActive(true);
+            StartCoroutine(ClashImpactReturn(spawnQueue));
         }
-        
-        //decide which object to teleport
-
-
     }
-
-
+    IEnumerator ClashImpactReturn(int spawnQueue)
+    {
+        yield return new WaitForSeconds(0.5f);
+        particlePool[spawnQueue].transform.position = transform.position;
+        particlePool[spawnQueue].SetActive(false);
+        activeSum--;
+    }
+    //StartCoroutine(ClashImpactReturn(spawnQueue));
 }

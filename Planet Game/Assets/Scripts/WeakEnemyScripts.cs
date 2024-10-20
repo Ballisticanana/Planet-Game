@@ -11,16 +11,17 @@ public class WeakEnemyScripts : MonoBehaviour
     public Vector3 playerLocal;
     private Vector3 awayFromPlayer;
     public float enemy0Speed = 1.0f;
-    public float enemyV;
-    private bool enemyFroze = false;
+    public float ImpactForce;
     public ParticleSystem clashImpact;
     private SpawnManager spawnManager;
+    private Vector3 impactPoint;
+    public bool enemyCanBeHit = true;
     void Start()
     {
         enemyRb = GetComponent<Rigidbody>();
         player = GameObject.Find("Player");
         playerRb = GameObject.Find("Player").GetComponent<Rigidbody>();
-        spawnManager = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
+        //spawnManager = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>().ClashImpact();
     }
 
     // Update is called once per frame
@@ -37,10 +38,10 @@ public class WeakEnemyScripts : MonoBehaviour
         {
             Rigidbody playerRb = collision.gameObject.GetComponent<Rigidbody>();
             Vector3 awayFromPlayer = transform.position - collision.gameObject.transform.position;
-            float enemyV = enemyRb.velocity.magnitude;
-            Debug.Log(enemyV);
+            float impactForce = enemyRb.velocity.magnitude;
+            Debug.Log(ImpactForce);
 
-            if (enemyV > 25)
+            if (impactForce > 10f && enemyCanBeHit == true)
             {
                 StartCoroutine(ImpactFreeze());
             }else
@@ -52,16 +53,16 @@ public class WeakEnemyScripts : MonoBehaviour
 
     IEnumerator ImpactFreeze()
     {
+        enemyCanBeHit = false;
         Vector3 saveAwayFromPlayer = transform.position - playerRb.gameObject.transform.position;
         float saveEnemyV = enemyRb.velocity.magnitude;
         enemyRb.velocity = Vector3.zero;
+        impactPoint = (playerRb.transform.position + enemyRb.transform.position)/ 2;
+        GameObject.Find("Spawn Manager").GetComponent<SpawnManager>().ClashImpactRetrieve((playerRb.transform.position + enemyRb.transform.position) / 2);
         enemyRb.isKinematic = true;
-        //see what happens when player doesny turn off
-        playerRb.isKinematic = true;
-        spawnManager.ClashImpact((playerRb.transform.position + enemyRb.transform.position)/2);
         yield return new WaitForSeconds(0.25f);
         enemyRb.isKinematic = false;
-        playerRb.isKinematic = false;
-        enemyRb.AddForce(saveAwayFromPlayer * saveEnemyV * 0.5f, ForceMode.Impulse);
+        enemyRb.AddForce(saveAwayFromPlayer * saveEnemyV * 0.3f, ForceMode.Impulse);
+        enemyCanBeHit = true;
     }
 }

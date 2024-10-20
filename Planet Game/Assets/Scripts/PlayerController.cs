@@ -19,14 +19,27 @@ public class PlayerController : MonoBehaviour
     //World info
     private GameObject gameCenter;
 
+    public GameObject impact;
+    public List<GameObject> testPool;
+    
+
+
+
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
         gameCenter = GameObject.Find("Game Center");
+
+        testPool = new List<GameObject>();
     }
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            testPool.Add(GameObject.Instantiate(impact));
+        }
+
         horizontalInput = Input.GetAxis("Horizontal");
         forwardInput = Input.GetAxis("Vertical");
 
