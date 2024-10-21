@@ -13,11 +13,12 @@ public class SpawnManager : MonoBehaviour
     //Impact Particles
     public GameObject impactParticleGameObject;
     public List<GameObject> impactParticlePool;
-    public bool impactParticleNoAvailableObject;
+    private bool impactParticleNoAvailableObject;
     #endregion
 
     //Functions
     #region ImpactParticle
+    // Function to be called on requiring a Vector3
     public void ImpactParticleRetrieve(Vector3 impactPoint)
     {
         // Reset bool for later change
@@ -29,7 +30,7 @@ public class SpawnManager : MonoBehaviour
             if (!impactParticlePool[i].activeInHierarchy)
             {
                 // Reactivating Impact Particle
-                Debug.Log("Reactivating Impactparticle " + i);
+                Debug.Log("Reactivating Impact Particle " + i);
                 // Controls the transportation, activeation & deactivation 
                 StartCoroutine(ImpactParticleReturn(i, impactPoint));
                 // Set bool false stopping next step from Instantiating new game object in pool
@@ -41,12 +42,15 @@ public class SpawnManager : MonoBehaviour
         // checks bool if Impact Particle was inabled, if not Instantiate new Impact Particle in pool
         if (impactParticleNoAvailableObject == true)
         {
+            // Instantiating Impact Particle 
+            Debug.Log("Instantiating Impact Particle " + i);
             // Adds a clone of public game object to the pool
             impactParticlePool.Add(GameObject.Instantiate(impactParticleGameObject, impactPoint, Quaternion.identity));
             // Controls the transportation, activeation & deactivation
             StartCoroutine(ImpactParticleReturn(impactParticlePool.Count-1, impactPoint));
         }
     }
+    // Function with timed cooldown requires the effected Int GameObject & Vector3 transform position 
     IEnumerator ImpactParticleReturn(int spawnQueue, Vector3 impactPoint)
     {
         // Transfers position to ImpactPoint vector & activates Impact Particle 
