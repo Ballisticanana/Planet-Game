@@ -51,16 +51,16 @@ public class SpawnManager : MonoBehaviour
         }
     }
     // Function with timed cooldown requires the effected Int GameObject & Vector3 transform position 
-    IEnumerator ImpactParticleReturn(int spawnQueue, Vector3 impactPoint)
+    IEnumerator ImpactParticleReturn(int impactPointUsedGameObject, Vector3 impactPoint)
     {
         // Transfers position to ImpactPoint vector & activates Impact Particle 
-        impactParticlePool[spawnQueue].transform.position = impactPoint;
-        impactParticlePool[spawnQueue].SetActive(true);
+        impactParticlePool[impactPointUsedGameObject].transform.position = impactPoint;
+        impactParticlePool[impactPointUsedGameObject].SetActive(true);
         // Time between top and bottom Function
         yield return new WaitForSeconds(1);
         // Transfers position to Spawn Manager position & deactivates Impact Particle
-        impactParticlePool[spawnQueue].SetActive(false);
-        impactParticlePool[spawnQueue].transform.position = transform.position;
+        impactParticlePool[impactPointUsedGameObject].SetActive(false);
+        impactParticlePool[impactPointUsedGameObject].transform.position = transform.position;
     }
     #endregion
 }
