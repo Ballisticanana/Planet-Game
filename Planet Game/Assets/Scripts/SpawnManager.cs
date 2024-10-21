@@ -8,49 +8,49 @@ using UnityEngine.Pool;
 
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject impact;
-    public List<GameObject> particlePool;
-    public int particleTotal = 1;
-    public int spawnQueue = 0;
-    public int activeSum = 0;
-    private Vector3 savedImpactPoint;
+    //Variables
+    #region Variables
+    //Impact Particles
+    public GameObject impactParticleGameObject;
+    public List<GameObject> impactParticlePool;
+    public bool impactParticleNoAvailableObject;
+    #endregion
 
-    public void ClashImpactRetrieve(Vector3 impactPoint)
+    //Functions
+    #region ImpactParticle
+    public void ImpactParticleRetrieve(Vector3 impactPoint)
     {
-        savedImpactPoint=impactPoint;
-        if (spawnQueue == particleTotal)
+        // Reset bool for later change
+        impactParticleNoAvailableObject = true;
+        // Check every pooled object
+        for (int i = 0; i < impactParticlePool.Count; i++)
         {
-            spawnQueue = 0;
+            // Check if object is deactivated
+            if (!impactParticlePool[i].activeInHierarchy)
+            {
+                // Reactivating Impact Particle
+                Debug.Log("Reactivating Impactparticle " + i);
+                StartCoroutine(ImpactParticleReturn(i, impactPoint));
+                // Set bool false stopping next step from Instantiating new game object in pool
+                impactParticleNoAvailableObject = false;
+                // Tells for function to end
+                break;
+            }
         }
-        if (particlePool[spawnQueue].activeSelf == false)
+        // checks bool if Impact Particle was inabled, if not Instantiate new Impact Particle in pool
+        if (impactParticleNoAvailableObject == true)
         {
-            StartCoroutine(ClashImpactReturn(spawnQueue));
-            particlePool[spawnQueue].transform.position = savedImpactPoint;
-            particlePool[spawnQueue].SetActive(true);
-            activeSum++;
-            spawnQueue++;
-        }
-        else if(activeSum < particleTotal)
-        {
-            spawnQueue++;
-            ClashImpactRetrieve(savedImpactPoint);
-        }
-        else
-        {
-            particlePool.Add(GameObject.Instantiate(impact, impactPoint, Quaternion.identity));
-            particleTotal++;
-            spawnQueue++;
-            activeSum++;
-            particlePool[spawnQueue].SetActive(true);
-            StartCoroutine(ClashImpactReturn(spawnQueue));
+            impactParticlePool.Add(GameObject.Instantiate(impactParticleGameObject, impactPoint, Quaternion.identity));
+            StartCoroutine(ImpactParticleReturn(impactParticlePool.Count-1, impactPoint));
         }
     }
-    IEnumerator ClashImpactReturn(int spawnQueue)
+    IEnumerator ImpactParticleReturn(int spawnQueue, Vector3 impactPoint)
     {
-        yield return new WaitForSeconds(0.5f);
-        particlePool[spawnQueue].transform.position = transform.position;
-        particlePool[spawnQueue].SetActive(false);
-        activeSum--;
+        impactParticlePool[spawnQueue].transform.position = impactPoint;
+        impactParticlePool[spawnQueue].SetActive(true);
+        yield return new WaitForSeconds(1);
+        impactParticlePool[spawnQueue].SetActive(false);
+        impactParticlePool[spawnQueue].transform.position = transform.position;
     }
-    //StartCoroutine(ClashImpactReturn(spawnQueue));
+    #endregion
 }

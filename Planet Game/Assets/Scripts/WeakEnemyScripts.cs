@@ -41,7 +41,7 @@ public class WeakEnemyScripts : MonoBehaviour
             float impactForce = enemyRb.velocity.magnitude;
             Debug.Log(ImpactForce);
 
-            if (impactForce > 10f && enemyCanBeHit == true)
+            if (impactForce > 25f && enemyCanBeHit == true)
             {
                 StartCoroutine(ImpactFreeze());
             }else
@@ -58,9 +58,9 @@ public class WeakEnemyScripts : MonoBehaviour
         float saveEnemyV = enemyRb.velocity.magnitude;
         enemyRb.velocity = Vector3.zero;
         impactPoint = (playerRb.transform.position + enemyRb.transform.position)/ 2;
-        GameObject.Find("Spawn Manager").GetComponent<SpawnManager>().ClashImpactRetrieve((playerRb.transform.position + enemyRb.transform.position) / 2);
+        GameObject.Find("Spawn Manager").GetComponent<SpawnManager>().ImpactParticleRetrieve((playerRb.transform.position + enemyRb.transform.position) / 2);
         enemyRb.isKinematic = true;
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.3f);
         enemyRb.isKinematic = false;
         enemyRb.AddForce(saveAwayFromPlayer * saveEnemyV * 0.3f, ForceMode.Impulse);
         enemyCanBeHit = true;
