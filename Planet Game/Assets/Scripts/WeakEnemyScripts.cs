@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WeakEnemyScripts : MonoBehaviour
 {
+    #region Variables
     private Rigidbody enemyRb;
     public Vector3 enemyLocal;
     private GameObject player;
@@ -16,6 +17,7 @@ public class WeakEnemyScripts : MonoBehaviour
     private SpawnManager spawnManager;
     private Vector3 impactPoint;
     public bool enemyCanBeHit = true;
+    #endregion
     void Start()
     {
         enemyRb = GetComponent<Rigidbody>();
