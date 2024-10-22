@@ -30,7 +30,7 @@ public class SpawnManager : MonoBehaviour
             if (!impactParticlePool[i].activeInHierarchy)
             {
                 // Reactivating Impact Particle
-                Debug.Log("Reactivating Impact Particle " + i);
+                Debug.Log("Reactivating Impact Particle Element ("+i+")");
                 // Controls the transportation, activeation & deactivation 
                 StartCoroutine(ImpactParticleReturn(i, impactPoint));
                 // Set bool false stopping next step from Instantiating new game object in pool
@@ -43,7 +43,7 @@ public class SpawnManager : MonoBehaviour
         if (impactParticleNoAvailableObject == true)
         {
             // Instantiating Impact Particle 
-            Debug.Log("Instantiating Impact Particle " + i);
+            Debug.Log("Instantiating Impact Particle Element ("+impactParticlePool.Count+")");
             // Adds a clone of public game object to the pool
             impactParticlePool.Add(GameObject.Instantiate(impactParticleGameObject, impactPoint, Quaternion.identity));
             // Controls the transportation, activeation & deactivation
