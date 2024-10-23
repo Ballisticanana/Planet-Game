@@ -2,7 +2,7 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
-/Planet Game/[Ll]ibrary/
+/Planet-Game/Planet Game/[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
 /[Ll]ogs/
