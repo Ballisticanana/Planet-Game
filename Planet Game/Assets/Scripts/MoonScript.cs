@@ -72,7 +72,7 @@ public class MoonScript : MonoBehaviour
             float impactForce = enemyRb.velocity.magnitude;
             //Debug.Log(enemyRb.velocity.magnitude);
 
-            if (impactForce > neededImpactForFreeze && enemyCanBeHit == true)
+            if (Mathf.Abs((playerRb.velocity - enemyRb.velocity).magnitude) > neededImpactForFreeze && enemyCanBeHit == true)
             {
                 Debug.Log("Needed impact for a freeze " + neededImpactForFreeze + " m/s          Impact force " + ((Mathf.Round(enemyRb.velocity.magnitude * 10)) / 10) + " m/s");
                 StartCoroutine(ImpactFreeze());
