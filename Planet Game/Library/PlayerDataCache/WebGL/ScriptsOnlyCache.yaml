@@ -2,13 +2,11 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - GameCenter
+    - MoonScript
     - PlayerController
     - SpawnManager
-    - WeakEnemyScripts
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
-    Unity.Timeline.Editor.dll:
-    - TimelineProjectSettings
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
@@ -56,21 +54,21 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 16626}
+      Script: {instanceID: 16810}
     - Class: 114
-      Script: {instanceID: 16812}
+      Script: {instanceID: 18984}
     - Class: 114
       Script: {instanceID: 19628}
     - Class: 114
-      Script: {instanceID: 20824}
+      Script: {instanceID: 29942}
     - Class: 114
-      Script: {instanceID: 23800}
+      Script: {instanceID: 55162}
     - Class: 114
-      Script: {instanceID: 23802}
+      Script: {instanceID: 55170}
     - Class: 114
-      Script: {instanceID: 23804}
+      Script: {instanceID: 55172}
     - Class: 114
-      Script: {instanceID: 23806}
+      Script: {instanceID: 55174}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 124
@@ -92,12 +90,6 @@ ScriptsOnlyBuild:
     - Class: 850595691
       Script: {instanceID: 0}
   scriptHashData:
-  - hash:
-      serializedVersion: 2
-      Hash: 59326b7ae0b33c723bd2e9eac20dc20e
-    assemblyName: Assembly-CSharp
-    namespaceName: 
-    className: SpawnManager
   - hash:
       serializedVersion: 2
       Hash: 55060a7bf226ac385ce19ebd450f199f
@@ -430,6 +422,12 @@ ScriptsOnlyBuild:
     className: Mask
   - hash:
       serializedVersion: 2
+      Hash: 59326b7ae0b33c723bd2e9eac20dc20e
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: SpawnManager
+  - hash:
+      serializedVersion: 2
       Hash: 4718916586b3818eb69bf65df61f0f3a
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
@@ -682,12 +680,6 @@ ScriptsOnlyBuild:
     className: TextMeshProUGUI
   - hash:
       serializedVersion: 2
-      Hash: 7ab06d5408e8e7f580c9aadacb6e4ec5
-    assemblyName: Assembly-CSharp
-    namespaceName: 
-    className: WeakEnemyScripts
-  - hash:
-      serializedVersion: 2
       Hash: da5a949a0bbd2ff91bc51c5805c2c41f
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
@@ -938,6 +930,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
     className: UnityOnSliderValueChangedMessageListener
+  - hash:
+      serializedVersion: 2
+      Hash: 5e857b941f417ecc1235c500b7405002
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: MoonScript
   platform: 20
   scenePathNames:
   - Assets/MilkyWay/Scenes/Default.unity
