@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TrackingObject
   - Enemy 0
+  - Under Platform
   layers:
   - Default
   - TransparentFX
