@@ -89,6 +89,7 @@ public class MoonScript : MonoBehaviour
             if (Mathf.Abs((otherEnemyRb.velocity - enemyRb.velocity).magnitude) > neededImpactForFreeze)
             {
                 Debug.Log("enemys hit");
+
                 StartCoroutine(MoonExplosion());
                 // do somthing cool when enemy 0s hit eachother
             }
@@ -102,7 +103,6 @@ public class MoonScript : MonoBehaviour
         float savedEnemyVelocity = enemyRb.velocity.magnitude;
         enemyRb.velocity = Vector3.zero;
         playerRb.AddForce(Vector3.down * 1500);
-        impactPoint = (playerRb.transform.position + enemyRb.transform.position) / 2;
         GameObject.Find("Spawn Manager").GetComponent<SpawnManager>().ImpactParticleRetrieve((playerRb.transform.position + enemyRb.transform.position) / 2);
         enemyRb.isKinematic = true;
         Debug.Log("waitForSeconds * savedEnemyVelocity / neededImpactForFreeze = " + waitForSeconds + " * " + savedEnemyVelocity + " / " + neededImpactForFreeze + " = " + waitForSeconds * savedEnemyVelocity / neededImpactForFreeze + " = Freeze time");
@@ -113,8 +113,9 @@ public class MoonScript : MonoBehaviour
     }
     IEnumerator MoonExplosion()
     {
-
+        GameObject.Find("Spawn Manager").GetComponent<SpawnManager>().EnemyOnEnemyParticleRetrieve((otherEnemyRb.transform.position + enemyRb.transform.position) / 2);
         yield return new WaitForSeconds(1);
+
     }
 
 }
