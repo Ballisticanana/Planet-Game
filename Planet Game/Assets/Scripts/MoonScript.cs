@@ -9,6 +9,7 @@ public class MoonScript : MonoBehaviour
     private Vector3 enemyLocal;
     private GameObject player;
     private Rigidbody playerRb;
+    private Rigidbody otherEnemyRb;
     private Vector3 playerLocal;
     private Vector3 awayFromPlayer;
     private SpawnManager spawnManager;
@@ -70,8 +71,6 @@ public class MoonScript : MonoBehaviour
             Rigidbody playerRb = collision.gameObject.GetComponent<Rigidbody>();
             Vector3 awayFromPlayer = transform.position - collision.gameObject.transform.position;
             float impactForce = enemyRb.velocity.magnitude;
-            //Debug.Log(enemyRb.velocity.magnitude);
-
             if (Mathf.Abs((playerRb.velocity - enemyRb.velocity).magnitude) > neededImpactForFreeze && enemyCanBeHit == true)
             {
                 Debug.Log("Needed impact for a freeze " + neededImpactForFreeze + " m/s          Impact force " + ((Mathf.Round(enemyRb.velocity.magnitude * 10)) / 10) + " m/s");
@@ -83,10 +82,16 @@ public class MoonScript : MonoBehaviour
                 playerRb.AddForce(Vector3.down * 1000);
             }
         }
+
         if (collision.gameObject.CompareTag("Enemy 0"))
         {
-            Debug.Log("enemys hit");
-            // do somthing cool when enemy 0s hit eachother
+            Rigidbody otherEnemyRb = collision.gameObject.GetComponent<Rigidbody>();
+            if (Mathf.Abs((otherEnemyRb.velocity - enemyRb.velocity).magnitude) > neededImpactForFreeze)
+            {
+                Debug.Log("enemys hit");
+                StartCoroutine(MoonExplosion());
+                // do somthing cool when enemy 0s hit eachother
+            }
         }
     }
 
@@ -106,4 +111,10 @@ public class MoonScript : MonoBehaviour
         enemyRb.AddForce(saveAwayFromPlayer * savedEnemyVelocity * ImpactFreezeForce, ForceMode.Impulse);
         enemyCanBeHit = true;
     }
+    IEnumerator MoonExplosion()
+    {
+
+        yield return new WaitForSeconds(1);
+    }
+
 }
