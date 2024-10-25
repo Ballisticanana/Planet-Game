@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -26,7 +27,15 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-    #region Player W,A,S,D
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            GameObject.Find("Spawn Manager").GetComponent<SpawnManager>().EnemyMoonGameObjectRetrieve(new Vector3(0,1,0));
+        }
+        if (Input.GetKeyDown(KeyCode.R) || playerRb.transform.position.y < -25)
+        {
+            StartCoroutine("Reset");
+        }
+        #region Player W,A,S,D
         // Assign values to each float
         horizontalInput = Input.GetAxis("Horizontal");
         forwardInput = Input.GetAxis("Vertical");
@@ -38,5 +47,10 @@ public class PlayerController : MonoBehaviour
             playerRb.AddForce(gameCenter.transform.right * horizontalInput * playerSpeed * Time.deltaTime);
         }
     #endregion
+    }
+    public void Reset()
+    {
+        Debug.Log("Reseting");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
