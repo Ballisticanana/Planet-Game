@@ -5,6 +5,7 @@ using UnityEngine;
 public class MoonScript : MonoBehaviour
 {
     #region Variables
+    //private variables
     private Rigidbody enemyRb;
     private Vector3 enemyLocal;
     private GameObject player;
@@ -21,6 +22,7 @@ public class MoonScript : MonoBehaviour
     public bool disablePullback = false;
     private int swarmBonus;
 
+    //public bools
     public float swarmBonusRange;
     public float platformPullbackRadius;
     public float platformPullbackStrength;
@@ -37,13 +39,19 @@ public class MoonScript : MonoBehaviour
     #endregion
     void Start()
     {
-        disableEnemyMovement = false;
+        //pretty sure this is redundant
+        //disableEnemyMovement = false;
+        //access self components
         enemyRb = GetComponent<Rigidbody>();
         m_Renderer = GetComponent<Renderer>();
+        //access GameObject components
         player = GameObject.Find("Player");
         playerRb = GameObject.Find("Player").GetComponent<Rigidbody>();
         spawnManager = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
+        //assign random texture when instantiated 
         m_Renderer.material.SetTexture("_BaseMap", texturePool[Random.Range(0, 3)]);
+        //Set game center
+        //NOTE change all 0,0,0 too this
         gameCenter = new Vector3(0, 0, 0);
     }
 
@@ -51,25 +59,38 @@ public class MoonScript : MonoBehaviour
     void Update()
     {
         #region Enemy Movement
+        //if enemy can move
         if (disableEnemyMovement == false)
         {
+            //find player and enemy location
+            //NOTE use these variables instead of the whole line each time
             playerLocal = new Vector3(player.transform.position.x, 0, player.transform.position.z);
             enemyLocal = new Vector3(transform.position.x, 0, transform.position.z);
+            //moves enemy at player 
             enemyRb.AddForce((playerLocal - enemyLocal).normalized * enemy0Speed * Time.deltaTime);
+            //if the enemy get too close to the edge of the board it forces the enemy back
+            //NOTE rework so theres a smoother transition to the end of the board and not a abrupt stop
             if (Vector3.Distance(gameCenter, enemyRb.transform.position) > platformPullbackRadius && disablePullback == false)
             {
                 //Debug.Log(Vector3.Distance(gameCenter, enemyRb.transform.position) - platformPullbackRadius);
                 //Debug.Log(platformPullbackRadius);
+                //NOTE can this be written better?
                 enemyRb.AddForce((gameCenter - enemyRb.transform.position).normalized * platformPullbackStrength * Time.deltaTime * (Vector3.Distance(gameCenter, enemyRb.transform.position) - platformPullbackRadius));
             }
         }
         #endregion
+        //if the enemy is below this point rest to pool
         if (enemyRb.transform.position.y < -75)
         {
+            //rest velocity
             enemyRb.velocity = Vector3.zero;
+            //reset texture
             m_Renderer.material.SetTexture("_MainTex", texturePool[Random.Range(0, 3)]);
+            //diaable game object 
             gameObject.SetActive(false);
+            //NOTE make this go to spawn manager
             enemyRb.transform.position = new Vector3();
+            //turns movement back on for when its reactivated
             disableEnemyMovement = false;
 
         }
@@ -146,6 +167,7 @@ public class MoonScript : MonoBehaviour
     }
     IEnumerator DisablePullback()
     {
+        //fix this
         disablePullback = true;
         yield return new WaitForSeconds(2);
         if (Vector3.Distance(transform.position, new Vector3(0,0,0)) < 20)
