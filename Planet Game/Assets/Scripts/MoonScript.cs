@@ -37,6 +37,7 @@ public class MoonScript : MonoBehaviour
     private Renderer m_Renderer;
     public List<Texture> texturePool;
     #endregion
+    #region Start
     void Start()
     {
         //pretty sure this is redundant
@@ -54,7 +55,7 @@ public class MoonScript : MonoBehaviour
         //NOTE change all 0,0,0 too this
         gameCenter = new Vector3(0, 0, 0);
     }
-
+    #endregion
     // Update is called once per frame
     void Update()
     {
@@ -79,20 +80,11 @@ public class MoonScript : MonoBehaviour
             }
         }
         #endregion
+        #region Reset to pool
         //if the enemy is below this point rest to pool
         if (enemyRb.transform.position.y < -75)
         {
-            //rest velocity
-            enemyRb.velocity = Vector3.zero;
-            //reset texture
-            m_Renderer.material.SetTexture("_MainTex", texturePool[Random.Range(0, 3)]);
-            //diaable game object 
-            gameObject.SetActive(false);
-            //NOTE make this go to spawn manager
-            enemyRb.transform.position = new Vector3();
-            //turns movement back on for when its reactivated
-            disableEnemyMovement = false;
-
+            ResetToPool()
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -121,6 +113,7 @@ public class MoonScript : MonoBehaviour
             else
             {
                 enemyRb.AddForce(awayFromPlayer * normalImpactForce, ForceMode.Impulse);
+                //NOTE can this be redon to disable y movement for the impact instance
                 playerRb.AddForce(Vector3.down * 1000);
                 swarmBonus = 0;
                 foreach (GameObject enemy in spawnManager.enemyMoonGameObjectPool)
@@ -131,6 +124,7 @@ public class MoonScript : MonoBehaviour
                     }
                 }
                 playerRb.AddForce(((playerRb.velocity - enemyRb.velocity).magnitude) * -awayFromPlayer.normalized * playerGivenKnockback * swarmBonus, ForceMode.Impulse);
+                //NOTE fix coroutine
                 StopCoroutine("DisablePullback");
                 StartCoroutine(DisablePullback());
             }
@@ -142,14 +136,27 @@ public class MoonScript : MonoBehaviour
             {
                 Debug.Log("enemys hit");
                 spawnManager.EnemyOnEnemyParticleRetrieve((otherEnemyRb.transform.position + enemyRb.transform.position) / 2);
-                enemyRb.velocity = Vector3.zero;
-                disablePullback = false;
-                m_Renderer.material.SetTexture("_BaseMap", texturePool[Random.Range(0, texturePool.Count)]);
-                gameObject.SetActive(false);
+                ResetToPool()
             }
         }
     }
-
+    public void ResetToPool()
+    {
+        //Ends all Coroutines
+        StopCoroutine("DisablePullback");
+        //Enables pullback
+        disablePullback = false;
+        //rest velocity
+        enemyRb.velocity = Vector3.zero;
+        //reset texture
+        m_Renderer.material.SetTexture("_MainTex", texturePool[Random.Range(0, 3)]);
+        //turns movement back on for when its reactivated
+        disableEnemyMovement = false;
+        //NOTE make this go to spawn manager
+        enemyRb.transform.position = new Vector3(0,0,0);
+        //diaable game object 
+        gameObject.SetActive(false);
+    }
     IEnumerator ImpactFreeze()
     {
         enemyCanBeHit = false;
