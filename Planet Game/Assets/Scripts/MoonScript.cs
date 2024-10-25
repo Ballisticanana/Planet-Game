@@ -18,7 +18,10 @@ public class MoonScript : MonoBehaviour
     private bool enemyCanBeHit = true;
     private Vector3 gameCenter;
     private bool disableEnemyMovement = false;
+    public bool disablePullback = false;
+    private int swarmBonus;
 
+    public float swarmBonusRange;
     public float platformPullbackRadius;
     public float platformPullbackStrength;
     public float enemy0Speed = 1.0f;
@@ -39,13 +42,8 @@ public class MoonScript : MonoBehaviour
         m_Renderer = GetComponent<Renderer>();
         player = GameObject.Find("Player");
         playerRb = GameObject.Find("Player").GetComponent<Rigidbody>();
-        otherEnemyRb = GameObject.Find("Moon").GetComponent<Rigidbody>();
-
-
-        //fix renderer
-        m_Renderer.material.SetTexture("_MainTex", texturePool[Random.Range(0, 3)]);
-
-
+        spawnManager = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
+        m_Renderer.material.SetTexture("_BaseMap", texturePool[Random.Range(0, 3)]);
         gameCenter = new Vector3(0, 0, 0);
     }
 
@@ -58,9 +56,11 @@ public class MoonScript : MonoBehaviour
             playerLocal = new Vector3(player.transform.position.x, 0, player.transform.position.z);
             enemyLocal = new Vector3(transform.position.x, 0, transform.position.z);
             enemyRb.AddForce((playerLocal - enemyLocal).normalized * enemy0Speed * Time.deltaTime);
-            if (Vector3.Distance(gameCenter, enemyRb.transform.position) > platformPullbackRadius)
+            if (Vector3.Distance(gameCenter, enemyRb.transform.position) > platformPullbackRadius && disablePullback == false)
             {
-                enemyRb.AddForce((gameCenter - enemyRb.transform.position).normalized * platformPullbackStrength * Time.deltaTime);
+                //Debug.Log(Vector3.Distance(gameCenter, enemyRb.transform.position) - platformPullbackRadius);
+                //Debug.Log(platformPullbackRadius);
+                enemyRb.AddForce((gameCenter - enemyRb.transform.position).normalized * platformPullbackStrength * Time.deltaTime * (Vector3.Distance(gameCenter, enemyRb.transform.position) - platformPullbackRadius));
             }
         }
         #endregion
@@ -94,12 +94,24 @@ public class MoonScript : MonoBehaviour
             {
                 Debug.Log("Needed impact for a freeze " + neededImpactForFreeze + " m/s          Impact force " + ((Mathf.Round(enemyRb.velocity.magnitude * 10)) / 10) + " m/s");
                 StartCoroutine(ImpactFreeze());
+                StopCoroutine("DisablePullback");
+                StartCoroutine(DisablePullback());
             }
             else
             {
                 enemyRb.AddForce(awayFromPlayer * normalImpactForce, ForceMode.Impulse);
                 playerRb.AddForce(Vector3.down * 1000);
-                playerRb.AddForce(((playerRb.velocity - enemyRb.velocity).magnitude) * -awayFromPlayer.normalized * playerGivenKnockback, ForceMode.Impulse);
+                swarmBonus = 0;
+                foreach (GameObject enemy in spawnManager.enemyMoonGameObjectPool)
+                {
+                    if (enemy.activeInHierarchy && Vector3.Distance(enemy.transform.position, transform.position) < 5)
+                    {
+                        swarmBonus++;
+                    }
+                }
+                playerRb.AddForce(((playerRb.velocity - enemyRb.velocity).magnitude) * -awayFromPlayer.normalized * playerGivenKnockback * swarmBonus, ForceMode.Impulse);
+                StopCoroutine("DisablePullback");
+                StartCoroutine(DisablePullback());
             }
         }
 
@@ -108,9 +120,10 @@ public class MoonScript : MonoBehaviour
             if (Mathf.Abs((otherEnemyRb.velocity - enemyRb.velocity).magnitude) > 25)
             {
                 Debug.Log("enemys hit");
-                GameObject.Find("Spawn Manager").GetComponent<SpawnManager>().EnemyOnEnemyParticleRetrieve((otherEnemyRb.transform.position + enemyRb.transform.position) / 2);
+                spawnManager.EnemyOnEnemyParticleRetrieve((otherEnemyRb.transform.position + enemyRb.transform.position) / 2);
                 enemyRb.velocity = Vector3.zero;
-                m_Renderer.material.SetTexture("_MainTex", texturePool[Random.Range(0, 3)]);
+                disablePullback = false;
+                m_Renderer.material.SetTexture("_BaseMap", texturePool[Random.Range(0, texturePool.Count)]);
                 gameObject.SetActive(false);
             }
         }
@@ -123,12 +136,25 @@ public class MoonScript : MonoBehaviour
         float savedEnemyVelocity = enemyRb.velocity.magnitude;
         enemyRb.velocity = Vector3.zero;
         playerRb.AddForce(Vector3.down * 1500);
-        GameObject.Find("Spawn Manager").GetComponent<SpawnManager>().ImpactParticleRetrieve((playerRb.transform.position + enemyRb.transform.position) / 2);
+        spawnManager.ImpactParticleRetrieve((playerRb.transform.position + enemyRb.transform.position) / 2);
         enemyRb.isKinematic = true;
         Debug.Log("waitForSeconds * savedEnemyVelocity / neededImpactForFreeze = " + waitForSeconds + " * " + savedEnemyVelocity + " / " + neededImpactForFreeze + " = " + waitForSeconds * savedEnemyVelocity / neededImpactForFreeze + " = Freeze time");
         yield return new WaitForSeconds(waitForSeconds * savedEnemyVelocity / neededImpactForFreeze);
         enemyRb.isKinematic = false;
         enemyRb.AddForce(saveAwayFromPlayer * savedEnemyVelocity * ImpactFreezeForce, ForceMode.Impulse);
         enemyCanBeHit = true;
+    }
+    IEnumerator DisablePullback()
+    {
+        disablePullback = true;
+        yield return new WaitForSeconds(2);
+        if (Vector3.Distance(transform.position, new Vector3(0,0,0)) < 20)
+        {
+            disablePullback = false;
+            Debug.Log("Saved");
+        }else
+        {
+            Debug.Log("Died");
+        }
     }
 }

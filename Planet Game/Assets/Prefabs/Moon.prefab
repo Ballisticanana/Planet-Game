@@ -49,11 +49,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca1d81a60903ec4a910de13b3bd0a84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platformPullbackRadius: 10
-  platformPullbackStrength: 600
+  swarmBonusRange: 0
+  platformPullbackRadius: 16
+  platformPullbackStrength: 1600
   enemy0Speed: 600
   normalImpactForce: 2
-  playerGivenKnockback: 3
+  playerGivenKnockback: 0.75
   ImpactFreezeForce: 0.7
   neededImpactForFreeze: 25
   waitForSeconds: 0.3

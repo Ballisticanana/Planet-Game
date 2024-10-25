@@ -24,7 +24,6 @@ public class SpawnManager : MonoBehaviour
     public GameObject enemyMoonGameObject;
     public List<GameObject> enemyMoonGameObjectPool;
     private bool enemyMoonGameObjectNoAvailableObject;
-    public MoonScript moonScript;
     #endregion
 
     //Functions

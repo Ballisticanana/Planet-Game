@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
 
     //Player Setting Variables
     public float playerSpeed;
+    public float jumpStrength;
 
     //World info
     private GameObject gameCenter;
@@ -29,9 +30,9 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            GameObject.Find("Spawn Manager").GetComponent<SpawnManager>().EnemyMoonGameObjectRetrieve(new Vector3(0,1,0));
+            GameObject.Find("Spawn Manager").GetComponent<SpawnManager>().EnemyMoonGameObjectRetrieve(new Vector3(0,0.5f,0));
         }
-        if (Input.GetKeyDown(KeyCode.R) || playerRb.transform.position.y < -25)
+        if (Input.GetKeyDown(KeyCode.R) || Vector3.Distance(new Vector3(0,0,0), playerRb.transform.position) > 30)
         {
             StartCoroutine("Reset");
         }
