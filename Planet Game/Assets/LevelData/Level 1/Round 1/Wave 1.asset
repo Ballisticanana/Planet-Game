@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Wave 1
   m_EditorClassIdentifier: 
   sceneObjects:
-  - {fileID: 6533047295771650793, guid: 4625d70a6f40ef04f90e378504a0b04e, type: 3}
-  sceneObjectsPosition: []
-  sceneObjectsRotation: []
-  sceneObjectsValue: []
+  - {fileID: 0}
+  sceneObjectsPosition:
+  - {x: 10, y: 0.75, z: 0}
+  sceneObjectsRotation:
+  - {x: 0, y: 0, z: 0}
+  sceneObjectsValue:
+  - 0

@@ -24,7 +24,18 @@ public class SpawnManager : MonoBehaviour
     public GameObject enemyMoonGameObject;
     public List<GameObject> enemyMoonGameObjectPool;
     private bool enemyMoonGameObjectNoAvailableObject;
+
+    
     #endregion
+
+    //Level Data
+    #region Level Pools
+
+    #endregion 
+    private void Start()
+    {
+        
+    } 
 
     //Functions
     #region ImpactParticle
@@ -119,6 +130,7 @@ public class SpawnManager : MonoBehaviour
         enemyOnEnemyParticlePool[enemyOnEnemyUsedGameObject].transform.position = transform.position;
     }
     #endregion
+    #region Moon Enemy
     public void EnemyMoonGameObjectRetrieve(Vector3 spawnPoint)
     {
         // Reset bool for later change
@@ -163,4 +175,5 @@ public class SpawnManager : MonoBehaviour
         // Time between top and bottom Function
         yield return new WaitForSeconds(0);
     }
+    #endregion
 }
