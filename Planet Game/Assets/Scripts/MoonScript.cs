@@ -105,6 +105,7 @@ public class MoonScript : MonoBehaviour
             pullBackTimer = 1.5f;
             Vector3 awayFromPlayer = transform.position - collision.gameObject.transform.position;
             float impactForce = enemyRb.velocity.magnitude;
+            //NOTE should only impact particle if player is moving 2/3 as fast as rnemy or more
             if (Mathf.Abs((playerRb.velocity - enemyRb.velocity).magnitude) > neededImpactForFreeze && enemyCanBeHit == true)
             {
                 Debug.Log("Needed impact for a freeze " + neededImpactForFreeze + " m/s          Impact force " + ((Mathf.Round(enemyRb.velocity.magnitude * 10)) / 10) + " m/s");
