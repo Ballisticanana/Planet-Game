@@ -107,12 +107,14 @@ public class GameCenter : MonoBehaviour
         }
         posXNumberOneRangeMin = Mathf.Round((posXCripticFloat % 1) * 100);
         posXNumberTwoRangeMax = Mathf.Round((posXCripticFloat % 0.01f) * 10000);
-
+        //
+        Random.RandomRange(posXNumberOnePosOrNeg * posXNumberOneRangeMin, posXNumberTwoPosOrNeg * posXNumberOneRangeMax);
+        //
         //posXNumberTwoPosOrNeg
         //posXNumberOneRangeMin
         //posXNumberTwoRangeMax
         //float min     float max
-        //Random.RandomRange(posXNumberOnePosOrNeg * posXNumberOneRangeMin, posXNumberTwoPosOrNeg * posXNumberOneRangeMax);
+        Random.RandomRange(posXNumberOnePosOrNeg * posXNumberOneRangeMin, posXNumberTwoPosOrNeg * posXNumberOneRangeMax);
 
 
     }
