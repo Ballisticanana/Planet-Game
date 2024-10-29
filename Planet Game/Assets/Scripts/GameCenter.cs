@@ -150,7 +150,7 @@ public class GameCenter : MonoBehaviour
         {
             posYNumberOnePosOrNeg = -1;
         }
-        if (Mathf.Round((posXCripticFloat%10)) == 2)
+        if (Mathf.Round((posYCripticFloat%10)) == 2)
         {
             posYNumberTwoPosOrNeg = 1;
         }
