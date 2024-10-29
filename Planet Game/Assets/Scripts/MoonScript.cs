@@ -144,7 +144,7 @@ public class MoonScript : MonoBehaviour
                 ResetToPool();
             }
         }
-        if (collision.gameObject.CompareTag("Ground") && disableEnemyMovement == true && transform.position.y > 0)
+        if (collision.gameObject.CompareTag("Ground") && disableEnemyMovement == true && transform.position.y > 0 && transform.position.y < 3)
         {
             disableEnemyMovement = false;
             spawnManager.ImpactParticleRetrieve(transform.position - new Vector3(0, 0.5f, 0));
