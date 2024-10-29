@@ -18,9 +18,10 @@ public class MoonScript : MonoBehaviour
     private Vector3 impactPoint;
     private bool enemyCanBeHit = true;
     private Vector3 gameCenter;
-    private bool disableEnemyMovement = false;
+    public bool disableEnemyMovement = true;
     private int swarmBonus;
     private float pullBackTimer;
+    private bool canPullBack = true;
 
     //public bools
     public float swarmBonusRange;
@@ -72,7 +73,7 @@ public class MoonScript : MonoBehaviour
             enemyRb.AddForce((playerLocal - enemyLocal).normalized * enemy0Speed * Time.deltaTime);
             //if the enemy get too close to the edge of the board it forces the enemy back
             //NOTE rework so theres a smoother transition to the end of the board and not a abrupt stop
-            if (Vector3.Distance(gameCenter, enemyRb.transform.position) > platformPullbackRadiusMax && pullBackTimer <= 0)
+            if (Vector3.Distance(gameCenter, enemyRb.transform.position) > platformPullbackRadiusMax && pullBackTimer <= 0 && canPullBack == true)
             {
                 //Debug.Log(Vector3.Distance(gameCenter, enemyRb.transform.position) - platformPullbackRadius);
                 //Debug.Log(platformPullbackRadius);
@@ -143,6 +144,11 @@ public class MoonScript : MonoBehaviour
                 ResetToPool();
             }
         }
+        if (collision.gameObject.CompareTag("Ground") && disableEnemyMovement == true && transform.position.y > 0)
+        {
+            disableEnemyMovement = false;
+            spawnManager.ImpactParticleRetrieve(transform.position - new Vector3(0, 0.5f, 0));
+        }
     }
     public void ResetToPool()
     {
@@ -153,7 +159,7 @@ public class MoonScript : MonoBehaviour
         //reset texture
         m_Renderer.material.SetTexture("_BaseMap", texturePool[Random.Range(0, 3)]);
         //turns movement back on for when its reactivated
-        disableEnemyMovement = false;
+        disableEnemyMovement = true;
         //NOTE make this go to spawn manager DONE
         enemyRb.transform.position = spawnManager.transform.position;
         //diaable game object 

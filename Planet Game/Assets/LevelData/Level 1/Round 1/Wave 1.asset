@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: Wave 1
   m_EditorClassIdentifier: 
   sceneObjects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - E1
+  - E2
+  - E1
+  - E0
   sceneObjectsPosition:
-  - {x: 10, y: 0.75, z: 0}
-  sceneObjectsRotation:
+  - {x: 10, y: 0.75, z: 10}
   - {x: 0, y: 0, z: 0}
+  - {x: -10, y: 0.75, z: 5}
+  - {x: 0, y: 0, z: 0}
+  sceneObjectsRotation: []
   sceneObjectsValue:
   - 0

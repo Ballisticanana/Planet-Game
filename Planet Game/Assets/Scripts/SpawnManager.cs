@@ -24,15 +24,9 @@ public class SpawnManager : MonoBehaviour
     public GameObject enemyMoonGameObject;
     public List<GameObject> enemyMoonGameObjectPool;
     private bool enemyMoonGameObjectNoAvailableObject;
-
-    public List<GameObject> originals;
+    private Vector3 enemyMoonSpawnHight = new Vector3(0, 20, 0);
     #endregion
 
-    //Level Data
-    #region Level Pools
-    public LevelData Levels;
-    Levels[0].Rounds[0].Waves[0].sceneObjects[0]
-    #endregion 
     //Functions
     #region ImpactParticle
     // Function to be called on requiring a Vector3
@@ -208,12 +202,10 @@ public class SpawnManager : MonoBehaviour
     IEnumerator EnemyMoonGameObjectBirth(int enemyMoonGameObjectUsedGameObject, Vector3 spawnPoint)
     {
         // Transfers position to Enemy MoonGame Object vector & activates Impact Particle 
-        enemyMoonGameObjectPool[enemyMoonGameObjectUsedGameObject].transform.position = spawnPoint;
+        enemyMoonGameObjectPool[enemyMoonGameObjectUsedGameObject].transform.position = spawnPoint + enemyMoonSpawnHight;
         enemyMoonGameObjectPool[enemyMoonGameObjectUsedGameObject].SetActive(true);
         //moonScript = enemyMoonGameObjectPool[enemyMoonGameObjectUsedGameObject].GetComponent<MoonScript>();
         //Birth script needs to disable the disable movment bool
-
-        Debug.Log(enemyMoonGameObjectUsedGameObject);
         // Time between top and bottom Function
         yield return new WaitForSeconds(0);
     }

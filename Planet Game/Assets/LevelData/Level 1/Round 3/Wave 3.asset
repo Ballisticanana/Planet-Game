@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89d7bfd875e44fa42b44aaf7e714f6c2, type: 3}
   m_Name: Wave 3
   m_EditorClassIdentifier: 
-  sceneObjects: []
+  sceneObjects:
+  - E1
   sceneObjectsPosition: []
   sceneObjectsRotation: []
   sceneObjectsValue: []

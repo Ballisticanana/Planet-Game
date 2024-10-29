@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            GameObject.Find("Spawn Manager").GetComponent<SpawnManager>().EnemyMoonGameObjectRetrieve(new Vector3(0,0.75f,0));
+            GameObject.Find("Spawn Manager").GetComponent<SpawnManager>().EnemyMoonGameObjectRetrieve(new Vector3(Random.Range(-10,11),0.75f, Random.Range(-10, 11)));
         }
         if (Input.GetKeyDown(KeyCode.R) || Vector3.Distance(new Vector3(0,0,0), playerRb.transform.position) > 30)
         {
