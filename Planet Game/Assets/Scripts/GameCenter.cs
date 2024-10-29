@@ -10,11 +10,24 @@ public class GameCenter : MonoBehaviour
     public int veiwedLevelNumber;
     public int veiwedRoundNumber;
     public int veiwedWaveNumber;
+    
     public float posXCripticFloat;
     public float posXNumberOnePosOrNeg;
     public float posXNumberTwoPosOrNeg;
     public float posXNumberOneRangeMin;
     public float posXNumberTwoRangeMax;
+
+    public float posYCripticFloat;
+    public float posYNumberOnePosOrNeg;
+    public float posYNumberTwoPosOrNeg;
+    public float posYNumberOneRangeMin;
+    public float posYNumberTwoRangeMax;
+
+    public float posZCripticFloat;
+    public float posZNumberOnePosOrNeg;
+    public float posZNumberTwoPosOrNeg;
+    public float posZNumberOneRangeMin;
+    public float posZNumberTwoRangeMax;
 
 
     private int levelNumber;
@@ -48,7 +61,14 @@ public class GameCenter : MonoBehaviour
             {
                 RandomPositionGeneratorX(i);
             }
-
+            if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].y > 900)
+            {
+                RandomPositionGeneratorY(i);
+            }
+            if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].z > 900)
+            {
+                RandomPositionGeneratorZ(i);
+            }
             #endregion
             else
             {
@@ -107,15 +127,52 @@ public class GameCenter : MonoBehaviour
         }
         posXNumberOneRangeMin = Mathf.Round((posXCripticFloat % 1) * 100);
         posXNumberTwoRangeMax = Mathf.Round((posXCripticFloat % 0.01f) * 10000);
-        //
-        Random.RandomRange(posXNumberOnePosOrNeg * posXNumberOneRangeMin, posXNumberTwoPosOrNeg * posXNumberOneRangeMax);
-        //
-        //posXNumberTwoPosOrNeg
-        //posXNumberOneRangeMin
-        //posXNumberTwoRangeMax
-        //float min     float max
-        Random.RandomRange(posXNumberOnePosOrNeg * posXNumberOneRangeMin, posXNumberTwoPosOrNeg * posXNumberOneRangeMax);
-
-
+        Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].x = Random.RandomRange(posXNumberOnePosOrNeg * posXNumberOneRangeMin, posXNumberTwoPosOrNeg * posXNumberOneRangeMax);
+    }
+    public void RandomPositionGeneratorY(int i)
+    {
+        posYCripticFloat = Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].y % 900;
+        if (Mathf.Round(posYCripticFloat / 10) == 2)
+        {
+            posYNumberOnePosOrNeg = 1;
+        }
+        else
+        {
+            posYNumberOnePosOrNeg = -1;
+        }
+        if (Mathf.Round((posXCripticFloat%10)) == 2)
+        {
+            posYNumberTwoPosOrNeg = 1;
+        }
+        else
+        {
+            posYNumberTwoPosOrNeg = -1;
+        }
+        posYNumberOneRangeMin = Mathf.Round((posYCripticFloat % 1) * 100);
+        posYNumberTwoRangeMax = Mathf.Round((posYCripticFloat % 0.01f) * 10000);
+        Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].y = Random.RandomRange(posYNumberOnePosOrNeg * posYNumberOneRangeMin, posYNumberTwoPosOrNeg * posYNumberOneRangeMax);
+    }
+    public void RandomPositionGeneratorZ(int i)
+    {
+        posZCripticFloat = Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].z % 900;
+        if (Mathf.Round(posZCripticFloat / 10) == 2)
+        {
+            posZNumberOnePosOrNeg = 1;
+        }
+        else
+        {
+            posZNumberOnePosOrNeg = -1;
+        }
+        if (Mathf.Round((posZCripticFloat%10)) == 2)
+        {
+            posZNumberTwoPosOrNeg = 1;
+        }
+        else
+        {
+            posZNumberTwoPosOrNeg = -1;
+        }
+        posZNumberOneRangeMin = Mathf.Round((posZCripticFloat % 1) * 100);
+        posZNumberTwoRangeMax = Mathf.Round((posZCripticFloat % 0.01f) * 10000);
+        Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].z = Random.RandomRange(posZNumberOnePosOrNeg * posZNumberOneRangeMin, posZNumberTwoPosOrNeg * posZNumberOneRangeMax);
     }
 }
