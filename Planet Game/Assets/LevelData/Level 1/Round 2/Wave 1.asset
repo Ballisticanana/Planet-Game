@@ -18,9 +18,14 @@ MonoBehaviour:
   - E1
   - E1
   sceneObjectsPosition:
-  - {x: 10, y: 0, z: 10}
+  - {x: 922.1718, y: 0, z: 10}
   - {x: 10, y: 0, z: -10}
   - {x: -10, y: 0, z: -10}
   - {x: -10, y: 0, z: 10}
   sceneObjectsRotation: []
   sceneObjectsValue: []
+  timeBeforeObject:
+  - 0
+  - 0
+  - 0
+  - 0
