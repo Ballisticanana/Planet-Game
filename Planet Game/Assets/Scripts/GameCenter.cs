@@ -10,25 +10,34 @@ public class GameCenter : MonoBehaviour
     public int veiwedLevelNumber;
     public int veiwedRoundNumber;
     public int veiwedWaveNumber;
-    
-    public float posXCripticFloat;
-    public float posXNumberOnePosOrNeg;
-    public float posXNumberTwoPosOrNeg;
-    public float posXNumberOneRangeMin;
-    public float posXNumberTwoRangeMax;
-
-    public float posYCripticFloat;
-    public float posYNumberOnePosOrNeg;
-    public float posYNumberTwoPosOrNeg;
-    public float posYNumberOneRangeMin;
-    public float posYNumberTwoRangeMax;
-
-    public float posZCripticFloat;
-    public float posZNumberOnePosOrNeg;
-    public float posZNumberTwoPosOrNeg;
-    public float posZNumberOneRangeMin;
-    public float posZNumberTwoRangeMax;
-
+    #region Random Position Variables
+    // Format 012.3456
+    // (0)(1)(2).(34)(56)
+    // (0) = classifier to make randome = 9
+    // (1) = minimum value positve or negitive 1 = -1 || 2 = 1
+    // (2) = maximum value positve or negitive 1 = -1 || 2 = 1
+    // (34) = minimum value = Two digit whole number
+    // (56) = maximum value = Two digit whole number
+    // Random.RandomRange((1) * (34),(2) * (56))
+    // X Random
+    private float posXCripticFloat;
+    private float posXNumberOnePosOrNeg;
+    private float posXNumberTwoPosOrNeg;
+    private float posXNumberOneRangeMin;
+    private float posXNumberTwoRangeMax;
+    // Y Random
+    private float posYCripticFloat;
+    private float posYNumberOnePosOrNeg;
+    private float posYNumberTwoPosOrNeg;
+    private float posYNumberOneRangeMin;
+    private float posYNumberTwoRangeMax;
+    // Z Random
+    private float posZCripticFloat;
+    private float posZNumberOnePosOrNeg;
+    private float posZNumberTwoPosOrNeg;
+    private float posZNumberOneRangeMin;
+    private float posZNumberTwoRangeMax;
+    #endregion
 
     private int levelNumber;
     private int roundNumber;
@@ -106,6 +115,7 @@ public class GameCenter : MonoBehaviour
         }
         waveNumber++;
     }
+    #region Random Position X, Y, Z Functions
     public void RandomPositionGeneratorX(int i)
     {
         posXCripticFloat = Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].x % 900;
@@ -175,4 +185,5 @@ public class GameCenter : MonoBehaviour
         posZNumberTwoRangeMax = Mathf.Round((posZCripticFloat % 0.01f) * 10000);
         Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].z = Random.RandomRange(posZNumberOnePosOrNeg * posZNumberOneRangeMin, posZNumberTwoPosOrNeg * posZNumberOneRangeMax);
     }
+    #endregion
 }
