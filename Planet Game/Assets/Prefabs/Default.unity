@@ -493,13 +493,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   veiwedLevelNumber: 1
-  veiwedRoundNumber: 2
+  veiwedRoundNumber: 1
   veiwedWaveNumber: 1
-  posXCripticFloat: 0
-  posXNumberOnePosOrNeg: 0
-  posXNumberTwoPosOrNeg: 0
-  posXNumberOneRangeMin: 0
-  posXNumberTwoRangeMax: 0
   Levels:
   - {fileID: 11400000, guid: 99acb3400992b864e8b9577a19ac6da9, type: 2}
   - {fileID: 11400000, guid: dd1683314a35b2a429bc9196c9ba4e2f, type: 2}
@@ -754,6 +749,59 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &1125962023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1125962025}
+  - component: {fileID: 1125962024}
+  m_Layer: 0
+  m_Name: Above Platform
+  m_TagString: Ground
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1125962024
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125962023}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 40, y: 4, z: 35}
+  m_Center: {x: 0, y: 2, z: 0}
+--- !u!4 &1125962025
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125962023}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1249929185 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 8aa4a8814028a42fea37772e41f89781, type: 3}
@@ -1844,5 +1892,6 @@ SceneRoots:
   - {fileID: 1625318369}
   - {fileID: 764362923}
   - {fileID: 1737391931}
+  - {fileID: 1125962025}
   - {fileID: 532390723}
   - {fileID: 2099222930}

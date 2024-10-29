@@ -137,7 +137,7 @@ public class SpawnManager : MonoBehaviour
                 StartCoroutine(EnemyMoonGameObjectBirth(i, spawnPoint));
                 // Set bool false stopping next step from Instantiating new game object in pool
                 enemyMoonGameObjectNoAvailableObject = false;
-                // Tells for function to end
+                //Ends function
                 break;
             }
         }
@@ -201,6 +201,8 @@ public class SpawnManager : MonoBehaviour
     // Function with timed cooldown requires the effected Int GameObject & Vector3 transform position 
     IEnumerator EnemyMoonGameObjectBirth(int enemyMoonGameObjectUsedGameObject, Vector3 spawnPoint)
     {
+        //Gives enemy a downward velocity
+        enemyMoonGameObjectPool[enemyMoonGameObjectUsedGameObject].GetComponent<Rigidbody>().velocity = Vector3.down * 50;
         // Transfers position to Enemy MoonGame Object vector & activates Impact Particle 
         enemyMoonGameObjectPool[enemyMoonGameObjectUsedGameObject].transform.position = spawnPoint + enemyMoonSpawnHight;
         enemyMoonGameObjectPool[enemyMoonGameObjectUsedGameObject].SetActive(true);

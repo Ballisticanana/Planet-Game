@@ -25,18 +25,23 @@ public class GameCenter : MonoBehaviour
     private float posXNumberTwoPosOrNeg;
     private float posXNumberOneRangeMin;
     private float posXNumberTwoRangeMax;
+    private float posX;
     // Y Random
     private float posYCripticFloat;
     private float posYNumberOnePosOrNeg;
     private float posYNumberTwoPosOrNeg;
     private float posYNumberOneRangeMin;
     private float posYNumberTwoRangeMax;
+    private float posY;
     // Z Random
     private float posZCripticFloat;
     private float posZNumberOnePosOrNeg;
     private float posZNumberTwoPosOrNeg;
     private float posZNumberOneRangeMin;
     private float posZNumberTwoRangeMax;
+    private float posZ;
+
+    private Vector3 finalVector;
     #endregion
 
     private int levelNumber;
@@ -66,17 +71,67 @@ public class GameCenter : MonoBehaviour
                 Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].timeBeforeObject.Add(0);
             }
             #region Random Position Builder
-            if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].x > 900)
+            if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].x > 900 || Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].y > 900 || Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].z > 900)
             {
-                RandomPositionGeneratorX(i);
-            }
-            if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].y > 900)
-            {
-                RandomPositionGeneratorY(i);
-            }
-            if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].z > 900)
-            {
-                RandomPositionGeneratorZ(i);
+                if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].x > 900)
+                {
+                    RandomPositionGeneratorX(i);
+                    finalVector.x = posX;
+                }
+                else
+                {
+                    finalVector.x = Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].x;
+                }
+
+                if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].y > 900)
+                {
+                    RandomPositionGeneratorY(i);
+                    finalVector.y = posY;
+                }
+                else
+                {
+                    finalVector.y = Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].y;
+                }
+
+                if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].z > 900)
+                {
+                    RandomPositionGeneratorZ(i);
+                    finalVector.z = posZ;
+                }
+                else
+                {
+                    finalVector.z = Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].z;
+                }
+
+                if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjects[i] == "E0")
+                {
+                    Debug.Log("Enemy 0");
+                }
+                if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjects[i] == "E1")
+                {
+                    Debug.Log("Enemy 1");
+                    spawnManager.EnemyMoonGameObjectRetrieve(finalVector);
+                }
+                if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjects[i] == "E2")
+                {
+                    Debug.Log("Enemy 2");
+                }
+                if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjects[i] == "P0")
+                {
+                    Debug.Log("PowerUp 0");
+                }
+                if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjects[i] == "P1")
+                {
+                    Debug.Log("PowerUp 1");
+                }
+                if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjects[i] == "P2")
+                {
+                    Debug.Log("PowerUp 2");
+                }
+                if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjects[i] == "P3")
+                {
+                    Debug.Log("PowerUp 3");
+                }
             }
             #endregion
             else
@@ -137,7 +192,7 @@ public class GameCenter : MonoBehaviour
         }
         posXNumberOneRangeMin = Mathf.Round((posXCripticFloat % 1) * 100);
         posXNumberTwoRangeMax = Mathf.Round((posXCripticFloat % 0.01f) * 10000);
-        Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].x = Random.RandomRange(posXNumberOnePosOrNeg * posXNumberOneRangeMin, posXNumberTwoPosOrNeg * posXNumberOneRangeMax);
+        posX = Random.Range(posXNumberOnePosOrNeg * posXNumberOneRangeMin, posXNumberTwoPosOrNeg * posXNumberTwoRangeMax);
     }
     public void RandomPositionGeneratorY(int i)
     {
@@ -160,7 +215,7 @@ public class GameCenter : MonoBehaviour
         }
         posYNumberOneRangeMin = Mathf.Round((posYCripticFloat % 1) * 100);
         posYNumberTwoRangeMax = Mathf.Round((posYCripticFloat % 0.01f) * 10000);
-        Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].y = Random.RandomRange(posYNumberOnePosOrNeg * posYNumberOneRangeMin, posYNumberTwoPosOrNeg * posYNumberOneRangeMax);
+        posY = Random.Range(posYNumberOnePosOrNeg * posYNumberOneRangeMin, posYNumberTwoPosOrNeg * posYNumberTwoRangeMax);
     }
     public void RandomPositionGeneratorZ(int i)
     {
@@ -183,7 +238,7 @@ public class GameCenter : MonoBehaviour
         }
         posZNumberOneRangeMin = Mathf.Round((posZCripticFloat % 1) * 100);
         posZNumberTwoRangeMax = Mathf.Round((posZCripticFloat % 0.01f) * 10000);
-        Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].z = Random.RandomRange(posZNumberOnePosOrNeg * posZNumberOneRangeMin, posZNumberTwoPosOrNeg * posZNumberOneRangeMax);
+        posZ = Random.Range(posZNumberOnePosOrNeg * posZNumberOneRangeMin, posZNumberTwoPosOrNeg * posZNumberTwoRangeMax);
     }
     #endregion
 }
