@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
 
     //World info
     private GameObject gameCenter;
+    private SpawnManager spawnManager;
     public ParticleSystem planetGlow;
     //ParticleSystem.ColorOverLifetimeModule colorModule;
     #endregion
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
     {
         playerRb = GetComponent<Rigidbody>();
         gameCenter = GameObject.Find("Game Center");
+        spawnManager = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
         //planetGlow
     }
 
@@ -72,7 +74,25 @@ public class PlayerController : MonoBehaviour
     public void Reset()
     {
         Debug.Log("Reseting");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        foreach (GameObject impactParticleNumber in spawnManager.impactParticlePool)
+        {
+            //ImpactParticleReturn(0, impactParticle);
+            StartCoroutine(spawnManager.ImpactParticleReturnInstant(impactParticleNumber));
+        }
+        foreach (GameObject enemyOnEnemyParticleNumber in spawnManager.enemyOnEnemyParticlePool)
+        {
+            StartCoroutine(spawnManager.EnemyOnEnemyParticleReturnInstant(enemyOnEnemyParticleNumber));
+        }
+        foreach (GameObject enemyMoonGameObject in spawnManager.enemyMoonGameObjectPool)
+        {
+            enemyMoonGameObject.GetComponent<MoonScript>().ResetToPool();
+        }
+        playerRb.velocity = Vector3.zero;
+        transform.position = new Vector3 (0, 0.8f, 0);
+        gameCenter.GetComponent<GameCenter>().waveNumber = 0;
+        StartCoroutine(gameCenter.GetComponent<GameCenter>().SpawnWave());
+        //spawnManager.enemyMoonGameObjectPool.
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     IEnumerator JumpCooldown()
     {
