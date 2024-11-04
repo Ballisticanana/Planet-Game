@@ -539,11 +539,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   veiwedLevelNumber: 1
-  veiwedRoundNumber: 2
-  veiwedWaveNumber: 2
+  veiwedRoundNumber: 1
+  veiwedWaveNumber: 1
+  moonsAreInGame: 0
   levelNumber: 0
   roundNumber: 0
   waveNumber: 0
+  timeTillCheck: 0
+  doubleCheck: 0
   Levels:
   - {fileID: 11400000, guid: 99acb3400992b864e8b9577a19ac6da9, type: 2}
   - {fileID: 11400000, guid: dd1683314a35b2a429bc9196c9ba4e2f, type: 2}
@@ -1401,7 +1404,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 1.3
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1410,10 +1413,10 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.466
     m_Bias: 0.05
     m_NormalBias: 0.4
-    m_NearPlane: 0.2
+    m_NearPlane: 0.1
     m_CullingMatrixOverride:
       e00: 1
       e01: 0

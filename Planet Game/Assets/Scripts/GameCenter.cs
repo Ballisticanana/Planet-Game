@@ -7,11 +7,12 @@ using UnityEngine;
 public class GameCenter : MonoBehaviour
 {
     private SpawnManager spawnManager;
+    private Rigidbody playerRb;
     public int veiwedLevelNumber;
     public int veiwedRoundNumber;
     public int veiwedWaveNumber;
 
-    private bool moonsAreInGame;
+    public bool moonsAreInGame;
 
     #region Random Position Variables
     // Format 012.3456
@@ -50,6 +51,10 @@ public class GameCenter : MonoBehaviour
     public int levelNumber;
     public int roundNumber;
     public int waveNumber;
+
+
+    public float timeTillCheck;
+    public int doubleCheck;
     //Level Data
     #region Level Pools
     public LevelData[] Levels;
@@ -60,32 +65,45 @@ public class GameCenter : MonoBehaviour
         waveNumber = veiwedWaveNumber - 1;
 
         spawnManager = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
+        playerRb = GameObject.Find("Player").GetComponent<Rigidbody>();
 
         Debug.Log("Level(" + (levelNumber + 1) + ") Round(" + (roundNumber + 1) + " of " + Levels[levelNumber].Rounds.Count + ") Wave(" + (waveNumber + 1) + " of " + Levels[levelNumber].Rounds[roundNumber].Waves.Count + ") " + levelNumber + "/" + roundNumber + "-" + (Levels[levelNumber].Rounds.Count - 1) + "/" + waveNumber + "-" + (Levels[levelNumber].Rounds[roundNumber].Waves.Count - 1));
         StartCoroutine("SpawnWave");
     }
     private void Update()
     {
-        foreach(GameObject Enemys in spawnManager.enemyMoonGameObjectPool)
+        timeTillCheck -= Time.deltaTime;
+        if (timeTillCheck < 0)
         {
-            if(!Enemys.activeSelf)
+            timeTillCheck += 0.5f;
+            Debug.Log("Running");
+            if (GameObject.FindGameObjectsWithTag("Enemy 0").Length == 0)
             {
-                moonsAreInGame = false;
+                doubleCheck += 1;
             }
-            else
+            if (doubleCheck == 2)
             {
-                moonsAreInGame = true;
+                StartCoroutine("SpawnWave");
+                Debug.Log("Spawning");
+                doubleCheck = 0;
             }
-        }
-        if (moonsAreInGame == false)
-        {
-            waveNumber++;
-            StartCoroutine("SpawnWave");
+            Debug.Log(doubleCheck);
         }
     }
     #endregion 
     public IEnumerator SpawnWave()
     {
+        if (Levels[levelNumber].Rounds[roundNumber].Waves.Count == waveNumber)
+        {
+            Debug.Log("New Round");
+            roundNumber++;
+            waveNumber = 0;
+        }
+        if (waveNumber == 0)
+        {
+            playerRb.transform.position = new Vector3(0, 0, 0);
+        }
+        Debug.Log("Spawning Wave!!!");
         for (int i = 0; i < Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjects.Count; i++)
         {
             if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].timeBeforeObject.Count == i)
