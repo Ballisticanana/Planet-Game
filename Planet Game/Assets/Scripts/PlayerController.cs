@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     //Player Body
     private Rigidbody playerRb;
     private Vector3 playerSavedJumpDirection;
+    private Vector3 directionSwitch;
+    private float playerSavedJumpMagnitude;
 
     //Player controlls
     private float horizontalInput, forwardInput;
@@ -43,9 +45,11 @@ public class PlayerController : MonoBehaviour
             //planetGlow.
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                playerSavedJumpDirection = new Vector3(horizontalInput, 0, forwardInput).normalized;
+                directionSwitch = new Vector3(horizontalInput, 1, forwardInput);
+                playerSavedJumpDirection = playerRb.velocity.normalized;
+                playerSavedJumpMagnitude = playerRb.velocity.magnitude;
                 playerRb.velocity = Vector3.zero;
-                playerRb.velocity = playerRb.velocity + playerSavedJumpDirection * jumpStrength;
+                playerRb.velocity = playerSavedJumpMagnitude * playerSavedJumpDirection * jumpStrength;  
                 StartCoroutine("JumpCooldown");
             }
         }

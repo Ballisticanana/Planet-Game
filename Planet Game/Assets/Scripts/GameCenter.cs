@@ -53,8 +53,10 @@ public class GameCenter : MonoBehaviour
     public int waveNumber;
 
 
-    public float timeTillCheck;
-    public int doubleCheck;
+    private float countingDownTime;
+    public float doubleCheck;
+    public float checkFrequency;
+    public float timeTillNewStage;
     //Level Data
     #region Level Pools
     public LevelData[] Levels;
@@ -72,16 +74,20 @@ public class GameCenter : MonoBehaviour
     }
     private void Update()
     {
-        timeTillCheck -= Time.deltaTime;
-        if (timeTillCheck < 0)
+        countingDownTime -= Time.deltaTime;
+        if (countingDownTime < 0)
         {
-            timeTillCheck += 0.5f;
+            countingDownTime += checkFrequency;
             Debug.Log("Running");
             if (GameObject.FindGameObjectsWithTag("Enemy 0").Length == 0)
             {
-                doubleCheck += 1;
+                doubleCheck += checkFrequency;
             }
-            if (doubleCheck == 2)
+            else
+            {
+                doubleCheck = 0;
+            }
+            if (doubleCheck == timeTillNewStage)
             {
                 StartCoroutine("SpawnWave");
                 Debug.Log("Spawning");
@@ -101,7 +107,7 @@ public class GameCenter : MonoBehaviour
         }
         if (waveNumber == 0)
         {
-            playerRb.transform.position = new Vector3(0, 0, 0);
+            playerRb.transform.position = new Vector3(0, 0.75f, 0);
         }
         Debug.Log("Spawning Wave!!!");
         for (int i = 0; i < Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjects.Count; i++)
@@ -110,6 +116,7 @@ public class GameCenter : MonoBehaviour
             {
                 Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].timeBeforeObject.Add(0);
             }
+            yield return new WaitForSeconds(Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].timeBeforeObject[i]);
             #region Random Position Builder
             if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].x > 900 || Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].y > 900 || Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].z > 900)
             {
@@ -206,7 +213,6 @@ public class GameCenter : MonoBehaviour
                     Debug.Log("PowerUp 3");
                 }
             }
-            yield return new WaitForSeconds(Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].timeBeforeObject[i]);
         }
         waveNumber++;
     }

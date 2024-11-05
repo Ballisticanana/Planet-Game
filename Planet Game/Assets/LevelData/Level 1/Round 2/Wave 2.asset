@@ -15,13 +15,7 @@ MonoBehaviour:
   sceneObjects:
   - E1
   - E1
-  - E1
-  - E1
-  - E1
   sceneObjectsPosition:
-  - {x: 912.1212, y: 0, z: 912.1313}
-  - {x: 912.1212, y: 0, z: 912.1313}
-  - {x: 912.1212, y: 0, z: 912.1313}
   - {x: 912.1212, y: 0, z: 912.1313}
   - {x: 912.1212, y: 0, z: 912.1313}
   sceneObjectsRotation: []

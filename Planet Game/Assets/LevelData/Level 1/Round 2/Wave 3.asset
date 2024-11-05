@@ -13,20 +13,13 @@ MonoBehaviour:
   m_Name: Wave 3
   m_EditorClassIdentifier: 
   sceneObjects:
-  - E0
   - E1
-  - E2
-  - P0
-  - P1
-  - P2
-  - P3
+  - E1
   sceneObjectsPosition:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  - {x: -19, y: 0, z: 0}
+  - {x: 19, y: 0, z: 0}
   sceneObjectsRotation: []
   sceneObjectsValue: []
+  timeBeforeObject:
+  - 0
+  - 0
