@@ -92,11 +92,8 @@ public class PlayerController : MonoBehaviour
             enemyMoonGameObject.GetComponent<MoonScript>().ResetToPool();
         }
         playerRb.velocity = Vector3.zero;
-        transform.position = new Vector3 (0, 0.8f, 0);
         gameCenter.GetComponent<GameCenter>().waveNumber = 0;
         StartCoroutine(gameCenter.GetComponent<GameCenter>().SpawnWave());
-        //spawnManager.enemyMoonGameObjectPool.
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     IEnumerator JumpCooldown()
     {

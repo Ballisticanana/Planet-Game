@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: Wave 1
   m_EditorClassIdentifier: 
   sceneObjects: []
-  sceneObjectsPosition: []
+  sceneObjectsPosition:
+  - {x: 12, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
   sceneObjectsRotation: []
   sceneObjectsValue: []
+  timeBeforeObject:
+  - 0
+  - 0
