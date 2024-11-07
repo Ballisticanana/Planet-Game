@@ -69,7 +69,7 @@ public class GameCenter : MonoBehaviour
         spawnManager = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
         playerRb = GameObject.Find("Player").GetComponent<Rigidbody>();
 
-        Debug.Log("Level(" + (levelNumber + 1) + ") Round(" + (roundNumber + 1) + " of " + Levels[levelNumber].Rounds.Count + ") Wave(" + (waveNumber + 1) + " of " + Levels[levelNumber].Rounds[roundNumber].Waves.Count + ") " + levelNumber + "/" + roundNumber + "-" + (Levels[levelNumber].Rounds.Count - 1) + "/" + waveNumber + "-" + (Levels[levelNumber].Rounds[roundNumber].Waves.Count - 1));
+        //Debug.Log("Level(" + (levelNumber + 1) + ") Round(" + (roundNumber + 1) + " of " + Levels[levelNumber].Rounds.Count + ") Wave(" + (waveNumber + 1) + " of " + Levels[levelNumber].Rounds[roundNumber].Waves.Count + ") " + levelNumber + "/" + roundNumber + "-" + (Levels[levelNumber].Rounds.Count - 1) + "/" + waveNumber + "-" + (Levels[levelNumber].Rounds[roundNumber].Waves.Count - 1));
         StartCoroutine("SpawnWave");
     }
     private void Update()
@@ -78,7 +78,7 @@ public class GameCenter : MonoBehaviour
         if (countingDownTime < 0)
         {
             countingDownTime += checkFrequency;
-            Debug.Log("Running");
+            //Debug.Log("Running");
             if (GameObject.FindGameObjectsWithTag("Enemy 0").Length == 0)
             {
                 doubleCheck += checkFrequency;
@@ -90,10 +90,10 @@ public class GameCenter : MonoBehaviour
             if (doubleCheck == timeTillNewStage)
             {
                 StartCoroutine("SpawnWave");
-                Debug.Log("Spawning");
+                //Debug.Log("Spawning");
                 doubleCheck = 0;
             }
-            Debug.Log(doubleCheck);
+            //Debug.Log(doubleCheck);
         }
     }
     #endregion 
@@ -101,7 +101,7 @@ public class GameCenter : MonoBehaviour
     {
         if (Levels[levelNumber].Rounds[roundNumber].Waves.Count == waveNumber)
         {
-            Debug.Log("New Round");
+            //Debug.Log("New Round");
             roundNumber++;
             waveNumber = 0;
         }
@@ -109,7 +109,7 @@ public class GameCenter : MonoBehaviour
         {
             playerRb.transform.position = new Vector3(0, 0.75f, 0);
         }
-        Debug.Log("Spawning Wave!!!");
+        //Debug.Log("Spawning Wave!!!");
         for (int i = 0; i < Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjects.Count; i++)
         {
             if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].timeBeforeObject.Count == i)
@@ -152,32 +152,32 @@ public class GameCenter : MonoBehaviour
 
                 if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjects[i] == "E0")
                 {
-                    Debug.Log("Enemy 0");
+                    //Debug.Log("Enemy 0");
                 }
                 if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjects[i] == "E1")
                 {
-                    Debug.Log("Enemy 1");
+                    //Debug.Log("Enemy 1");
                     spawnManager.EnemyMoonGameObjectRetrieve(finalVector);
                 }
                 if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjects[i] == "E2")
                 {
-                    Debug.Log("Enemy 2");
+                   // Debug.Log("Enemy 2");
                 }
                 if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjects[i] == "P0")
                 {
-                    Debug.Log("PowerUp 0");
+                    //Debug.Log("PowerUp 0");
                 }
                 if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjects[i] == "P1")
                 {
-                    Debug.Log("PowerUp 1");
+                    //Debug.Log("PowerUp 1");
                 }
                 if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjects[i] == "P2")
                 {
-                    Debug.Log("PowerUp 2");
+                    //Debug.Log("PowerUp 2");
                 }
                 if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjects[i] == "P3")
                 {
-                    Debug.Log("PowerUp 3");
+                    //Debug.Log("PowerUp 3");
                 }
             }
             #endregion

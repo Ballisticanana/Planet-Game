@@ -9,6 +9,7 @@ public class AsteroidScript : MonoBehaviour
     private Rigidbody playerRb;
     private SpawnManager spawnManager;
 
+    public int asteroidClumpSize;
     public float speed;
 
     public List<GameObject> asteroidShapePool;
@@ -27,10 +28,15 @@ public class AsteroidScript : MonoBehaviour
         }
         asteroidShapePool[Random.Range(0, 4)].SetActive(true);
     }
-
-    // Update is called once per frame
     void Update()
     {
         enemyRb.AddForce((playerRb.position - enemyRb.position).normalized * speed * Time.deltaTime);
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("I Should Blow up now");
+        }
     }
 }

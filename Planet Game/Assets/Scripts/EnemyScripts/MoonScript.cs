@@ -109,12 +109,12 @@ public class MoonScript : MonoBehaviour
             //NOTE should only impact particle if player is moving 2/3 as fast as rnemy or more
             if (Mathf.Abs((playerRb.velocity - enemyRb.velocity).magnitude) > neededImpactForFreeze && enemyCanBeHit == true)
             {
-                Debug.Log("Needed impact for a freeze " + neededImpactForFreeze + " m/s          Impact force " + ((Mathf.Round(enemyRb.velocity.magnitude * 10)) / 10) + " m/s");
+                //Debug.Log("Needed impact for a freeze " + neededImpactForFreeze + " m/s          Impact force " + ((Mathf.Round(enemyRb.velocity.magnitude * 10)) / 10) + " m/s");
                 enemyCanBeHit = false;
                 float savedEnemyVelocity = enemyRb.velocity.magnitude;
                 enemyRb.velocity = Vector3.zero;
                 spawnManager.ImpactParticleRetrieve((playerRb.transform.position + enemyRb.transform.position) / 2);
-                Debug.Log("waitForSeconds * savedEnemyVelocity / neededImpactForFreeze = " + waitForSeconds + " * " + savedEnemyVelocity + " / " + neededImpactForFreeze + " = " + waitForSeconds * savedEnemyVelocity / neededImpactForFreeze + " = Freeze time");
+                //Debug.Log("waitForSeconds * savedEnemyVelocity / neededImpactForFreeze = " + waitForSeconds + " * " + savedEnemyVelocity + " / " + neededImpactForFreeze + " = " + waitForSeconds * savedEnemyVelocity / neededImpactForFreeze + " = Freeze time");
                 enemyRb.AddForce((transform.position - playerRb.gameObject.transform.position) * savedEnemyVelocity * ImpactFreezeForce, ForceMode.Impulse);
                 enemyCanBeHit = true;
             }
@@ -139,7 +139,7 @@ public class MoonScript : MonoBehaviour
         {
             if (Mathf.Abs((otherEnemyRb.velocity - enemyRb.velocity).magnitude) > 40)
             {
-                Debug.Log("enemys hit");
+                //Debug.Log("enemys hit");
                 spawnManager.EnemyOnEnemyParticleRetrieve((otherEnemyRb.transform.position + enemyRb.transform.position) / 2);
                 ResetToPool();
             }
@@ -165,19 +165,4 @@ public class MoonScript : MonoBehaviour
         //diaable game object 
         gameObject.SetActive(false);
     }
-    /*IEnumerator ImpactFreeze()
-    {
-        enemyCanBeHit = false;
-        Vector3 saveAwayFromPlayer = transform.position - playerRb.gameObject.transform.position;
-        float savedEnemyVelocity = enemyRb.velocity.magnitude;
-        enemyRb.velocity = Vector3.zero;
-        playerRb.AddForce(Vector3.down * 1500);
-        spawnManager.ImpactParticleRetrieve((playerRb.transform.position + enemyRb.transform.position) / 2);
-        enemyRb.isKinematic = true;
-        Debug.Log("waitForSeconds * savedEnemyVelocity / neededImpactForFreeze = " + waitForSeconds + " * " + savedEnemyVelocity + " / " + neededImpactForFreeze + " = " + waitForSeconds * savedEnemyVelocity / neededImpactForFreeze + " = Freeze time");
-        yield return new WaitForSeconds(waitForSeconds * savedEnemyVelocity / neededImpactForFreeze);
-        enemyRb.isKinematic = false;
-        enemyRb.AddForce(saveAwayFromPlayer * savedEnemyVelocity * ImpactFreezeForce, ForceMode.Impulse);
-        enemyCanBeHit = true;
-    }*/
 }

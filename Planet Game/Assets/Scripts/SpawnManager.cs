@@ -41,7 +41,7 @@ public class SpawnManager : MonoBehaviour
             if (!impactParticlePool[i].activeInHierarchy)
             {
                 // Reactivating Impact Particle
-                Debug.Log("Reactivating Impact Particle Element (" + i + ")");
+                //Debug.Log("Reactivating Impact Particle Element (" + i + ")");
                 // Controls the transportation, activeation & deactivation 
                 StartCoroutine(ImpactParticleReturn(i));
                 // Set bool false stopping next step from Instantiating new game object in pool
@@ -57,7 +57,7 @@ public class SpawnManager : MonoBehaviour
         if (impactParticleNoAvailableObject == true)
         {
             // Instantiating Impact Particle 
-            Debug.Log("Instantiating Impact Particle Element (" + impactParticlePool.Count + ")");
+            //Debug.Log("Instantiating Impact Particle Element (" + impactParticlePool.Count + ")");
             // Adds a clone of public game object to the pool
             impactParticlePool.Add(GameObject.Instantiate(impactParticleGameObject, impactPoint, Quaternion.identity));
             // Controls the transportation, activeation & deactivation
@@ -98,7 +98,7 @@ public class SpawnManager : MonoBehaviour
             if (!enemyOnEnemyParticlePool[i].activeInHierarchy)
             {
                 // Reactivating EnemyOnEnemy Particle
-                Debug.Log("Reactivating Enemy On Enemy Particle Element (" + i + ")");
+                //Debug.Log("Reactivating Enemy On Enemy Particle Element (" + i + ")");
                 // Controls the transportation, activeation & deactivation 
                 StartCoroutine(EnemyOnEnemyParticleReturn(i, impactPoint));
                 // Set bool false stopping next step from Instantiating new game object in pool
@@ -114,7 +114,7 @@ public class SpawnManager : MonoBehaviour
         if (enemyOnEnemyParticleNoAvailableObject == true)
         {
             // Instantiating enemyOnEnemy Particle 
-            Debug.Log("Instantiating Enemy On Enemy Particle Element (" + enemyOnEnemyParticlePool.Count + ")");
+            //Debug.Log("Instantiating Enemy On Enemy Particle Element (" + enemyOnEnemyParticlePool.Count + ")");
             // Adds a clone of public game object to the pool
             enemyOnEnemyParticlePool.Add(GameObject.Instantiate(enemyOnEnemyParticleGameObject, impactPoint, Quaternion.identity));
             // Controls the transportation, activeation & deactivation
@@ -158,7 +158,7 @@ public class SpawnManager : MonoBehaviour
             if (!enemyMoonGameObjectPool[i].activeInHierarchy)
             {
                 // Reactivating Enemy MoonGame Object
-                Debug.Log("Reactivating Enemy MoonGame Object Element (" + i + ")");
+                //Debug.Log("Reactivating Enemy MoonGame Object Element (" + i + ")");
                 // Controls the transportation, activeation & deactivation 
                 StartCoroutine(EnemyMoonGameObjectBirth(i, spawnPoint));
                 // Set bool false stopping next step from Instantiating new game object in pool
@@ -171,7 +171,7 @@ public class SpawnManager : MonoBehaviour
         if (enemyMoonGameObjectNoAvailableObject == true)
         {
             // Instantiating Impact Particle 
-            Debug.Log("Instantiating Enemy MoonGame Object Element (" + enemyMoonGameObjectPool.Count + ")");
+            //Debug.Log("Instantiating Enemy MoonGame Object Element (" + enemyMoonGameObjectPool.Count + ")");
             // Adds a clone of public game object to the pool
             enemyMoonGameObjectPool.Add(GameObject.Instantiate(enemyMoonGameObject, spawnPoint, Quaternion.identity));
             // Controls the transportation, activeation & deactivation
@@ -192,6 +192,4 @@ public class SpawnManager : MonoBehaviour
         yield return new WaitForSeconds(0);
     }
     #endregion
-    //look inti substrings
-    
 }

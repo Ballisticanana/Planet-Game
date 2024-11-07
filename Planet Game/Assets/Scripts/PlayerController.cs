@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
     }
     public void Reset()
     {
-        Debug.Log("Reseting");
+        //Debug.Log("Reseting");
         foreach (GameObject impactParticleNumber in spawnManager.impactParticlePool)
         {
             //ImpactParticleReturn(0, impactParticle);
