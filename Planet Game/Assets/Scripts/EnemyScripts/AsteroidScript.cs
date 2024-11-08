@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class AsteroidScript : MonoBehaviour
@@ -11,13 +12,15 @@ public class AsteroidScript : MonoBehaviour
 
     public int asteroidClumpSize;
     public float speed;
+    public int enemyLevel;
+    private bool disableEnemyMovement = false;
+    private int priorityInt;
 
     public List<GameObject> asteroidShapePool;
 
-
-    // Start is called before the first frame update
     void Start()
     {
+        priorityInt = Random.Range(0, 1000000000);
         enemyRb = GetComponent<Rigidbody>();
         player = GameObject.Find("Player");
         playerRb = GameObject.Find("Player").GetComponent<Rigidbody>();
@@ -28,15 +31,34 @@ public class AsteroidScript : MonoBehaviour
         }
         asteroidShapePool[Random.Range(0, 4)].SetActive(true);
     }
+
     void Update()
     {
         enemyRb.AddForce((playerRb.position - enemyRb.position).normalized * speed * Time.deltaTime);
     }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("I Should Blow up now");
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Under Platform"))
+        {
+            disableEnemyMovement = true;
+        }
+        if (other.CompareTag("Asteroid") && other.GetComponent<AsteroidScript>().priorityInt > priorityInt)
+        {
+            //die function
+        }  
+        else
+        {
+            enemyLevel++;
+            //scale script
         }
     }
 }

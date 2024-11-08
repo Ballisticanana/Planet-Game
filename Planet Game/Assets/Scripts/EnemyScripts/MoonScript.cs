@@ -135,7 +135,7 @@ public class MoonScript : MonoBehaviour
             }
         }
 
-        if (collision.gameObject.CompareTag("Enemy 0"))
+        if (collision.gameObject.CompareTag("Moon"))
         {
             if (Mathf.Abs((otherEnemyRb.velocity - enemyRb.velocity).magnitude) > 40)
             {

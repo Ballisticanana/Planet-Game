@@ -5,9 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - TrackingObject
-  - Enemy 0
   - Under Platform
   - Ground
+  - Moon
+  - Asteroid
+  - Planet
   layers:
   - Default
   - TransparentFX

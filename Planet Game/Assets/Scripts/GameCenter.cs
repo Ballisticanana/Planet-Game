@@ -79,7 +79,7 @@ public class GameCenter : MonoBehaviour
         {
             countingDownTime += checkFrequency;
             //Debug.Log("Running");
-            if (GameObject.FindGameObjectsWithTag("Enemy 0").Length == 0)
+            if (GameObject.FindGameObjectsWithTag("Moon").Length == 0)
             {
                 doubleCheck += checkFrequency;
             }
