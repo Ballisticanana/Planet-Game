@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -16,6 +17,9 @@ public class AsteroidScript : MonoBehaviour
     private bool disableEnemyMovement = false;
     private int priorityInt;
 
+    private int savedOtherPriorityInt;
+    private int savedOtherEnemyLevel;
+
     public List<GameObject> asteroidShapePool;
 
     void Start()
@@ -30,6 +34,7 @@ public class AsteroidScript : MonoBehaviour
             var.SetActive(false);
         }
         asteroidShapePool[Random.Range(0, 4)].SetActive(true);
+        transform.localScale = Vector3.one * ((enemyLevel / 3) + 1);
     }
 
     void Update()
@@ -51,14 +56,24 @@ public class AsteroidScript : MonoBehaviour
         {
             disableEnemyMovement = true;
         }
-        if (other.CompareTag("Asteroid") && other.GetComponent<AsteroidScript>().priorityInt > priorityInt)
+
+        if (other.CompareTag("Asteroid"))
         {
-            //die function
-        }  
-        else
-        {
-            enemyLevel++;
-            //scale script
+            savedOtherPriorityInt = other.GetComponent<AsteroidScript>().priorityInt;
+            savedOtherEnemyLevel = other.GetComponent<AsteroidScript>().enemyLevel;
+            if (savedOtherEnemyLevel > enemyLevel)
+            {
+                Destroy(gameObject);
+            }
+            else if (savedOtherEnemyLevel == enemyLevel && savedOtherPriorityInt > priorityInt)
+            {
+                Destroy(gameObject);
+            }
+            else if (savedOtherPriorityInt < priorityInt)
+            {
+                enemyLevel = enemyLevel + savedOtherEnemyLevel;
+                transform.localScale = Vector3.one * (1+enemyLevel/2);
+            }
         }
     }
 }
