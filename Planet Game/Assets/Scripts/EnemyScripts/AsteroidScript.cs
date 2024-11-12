@@ -11,12 +11,11 @@ public class AsteroidScript : MonoBehaviour
     private Rigidbody playerRb;
     private SpawnManager spawnManager;
 
-    public int asteroidClumpSize;
     public float speed;
     public int enemyLevel;
-    private bool disableEnemyMovement = false;
-    private int priorityInt;
-    private bool canFire = true;
+    public bool disableEnemyMovement = false;
+    public int priorityInt;
+    public bool canFire = true;
 
     private int savedOtherPriorityInt;
     private int savedOtherEnemyLevel;
@@ -66,14 +65,15 @@ public class AsteroidScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Destroy(gameObject);
+            spawnManager.AsteroidExplosionParticleRetrieve((playerRb.transform.position + enemyRb.transform.position)/2);
+            ResetToPool();
             playerRb.AddForce(new Vector3(Random.Range(-1, 1) + 0.5f, 0, Random.Range(-1, 1) + 0.5f).normalized * enemyLevel * 20, ForceMode.Impulse);
         }
         if (collision.gameObject.CompareTag("Ground"))
         {
-            Destroy(gameObject);
             playerRb.AddExplosionForce(500 * enemyLevel, transform.position, 10);
-            //GameObject.Find("Moon").
+            spawnManager.AsteroidExplosionParticleRetrieve(enemyRb.transform.position);
+            ResetToPool();
         }
         if (collision.gameObject.CompareTag("Asteroid"))
         {
@@ -87,7 +87,7 @@ public class AsteroidScript : MonoBehaviour
             {
                 //do nothing
             }
-            else if (savedOtherPriorityInt < priorityInt)
+            else if (savedOtherPriorityInt < priorityInt && enemyLevel + savedOtherEnemyLevel < 5)
             {
                 enemyLevel = enemyLevel + savedOtherEnemyLevel;
                 transform.localScale = Vector3.one * (0.5f + 0.5f * enemyLevel);
@@ -110,5 +110,18 @@ public class AsteroidScript : MonoBehaviour
         enemyRb.AddForce((playerRb.position - enemyRb.position).normalized * 20, ForceMode.Impulse);
         yield return new WaitForSeconds(1);
         canFire = true;
+    }
+    public void ResetToPool()
+    {
+        priorityInt = Random.Range(0, 1000000000);
+        enemyRb.velocity = Vector3.zero;
+        foreach (GameObject var in asteroidShapePool)
+        {
+            var.SetActive(false);
+        }
+        asteroidShapePool[Random.Range(0, 4)].SetActive(true);
+        gameObject.SetActive(false);
+        canFire = true;
+        disableEnemyMovement = false;
     }
 }

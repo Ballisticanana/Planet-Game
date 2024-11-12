@@ -20,11 +20,21 @@ public class SpawnManager : MonoBehaviour
     public List<GameObject> enemyOnEnemyParticlePool;
     private bool enemyOnEnemyParticleNoAvailableObject;
 
+    //Enemy on Enemy Collision
+    public GameObject asteroidExplosionParticleGameObject;
+    public List<GameObject> asteroidExplosionParticlePool;
+    private bool asteroidExplosionParticleNoAvailableObject;
+
     //Enemy Moon Pool
     public GameObject enemyMoonGameObject;
     public List<GameObject> enemyMoonGameObjectPool;
     private bool enemyMoonGameObjectNoAvailableObject;
     private Vector3 enemyMoonSpawnHight = new Vector3(0, 20, 0);
+
+    public GameObject enemyAsteroidGameObject;
+    public List<GameObject> enemyAsteroidGameObjectPool;
+    private bool enemyAsteroidGameObjectNoAvailableObject;
+    private Vector3 enemyAsteroidSpawnHight = new Vector3(0, 0, 0);
     #endregion
 
     //Functions
@@ -146,16 +156,71 @@ public class SpawnManager : MonoBehaviour
         enemyOnEnemyUsedGameObject.transform.position = transform.position;
     }
     #endregion
+    #region Asteroid Explosion
+    public void AsteroidExplosionParticleRetrieve(Vector3 impactPoint)
+    {
+        // Reset bool for later change
+        asteroidExplosionParticleNoAvailableObject = true;
+        // Check every pooled object
+        for (int i = 0; i < asteroidExplosionParticlePool.Count; i++)
+        {
+            // Check if object is deactivated
+            if (!asteroidExplosionParticlePool[i].activeInHierarchy)
+            {
+                // Reactivating Impact Particle
+                //Debug.Log("Reactivating Impact Particle Element (" + i + ")");
+                // Controls the transportation, activeation & deactivation 
+                StartCoroutine(AsteroidExplosionParticleReturn(i));
+                // Set bool false stopping next step from Instantiating new game object in pool
+                asteroidExplosionParticleNoAvailableObject = false;
+                // Transfers position to ImpactPoint vector & activates Impact Particle 
+                asteroidExplosionParticlePool[i].transform.position = impactPoint;
+                asteroidExplosionParticlePool[i].SetActive(true);
+                // Tells for function to end
+                break;
+            }
+        }
+        // checks bool if Impact Particle was inabled, if not Instantiate new Impact Particle in pool
+        if (asteroidExplosionParticleNoAvailableObject == true)
+        {
+            // Instantiating Impact Particle 
+            //Debug.Log("Instantiating Impact Particle Element (" + asteroidExplosionParticlePool.Count + ")");
+            // Adds a clone of public game object to the pool
+            asteroidExplosionParticlePool.Add(GameObject.Instantiate(asteroidExplosionParticleGameObject, impactPoint, Quaternion.identity));
+            // Controls the transportation, activeation & deactivation
+            StartCoroutine(AsteroidExplosionParticleReturn(asteroidExplosionParticlePool.Count - 1));
+            // Transfers position to ImpactPoint vector & activates Impact Particle 
+            asteroidExplosionParticlePool[asteroidExplosionParticlePool.Count - 1].transform.position = impactPoint;
+            asteroidExplosionParticlePool[asteroidExplosionParticlePool.Count - 1].SetActive(true);
+        }
+    }
+    public IEnumerator AsteroidExplosionParticleReturn(int asteroidExplosionUsedGameObject)
+    {
+        // Time between top and bottom Function
+        yield return new WaitForSeconds(1);
+        // Transfers position to Spawn Manager position & deactivates Impact Particle
+        asteroidExplosionParticlePool[asteroidExplosionUsedGameObject].SetActive(false);
+        asteroidExplosionParticlePool[asteroidExplosionUsedGameObject].transform.position = transform.position;
+    }
+    public IEnumerator AsteroidExplosionParticleReturnInstant(GameObject asteroidExplosionUsedGameObject)
+    {
+        // Time between top and bottom Function
+        yield return new WaitForSeconds(0);
+        // Transfers position to Spawn Manager position & deactivates Impact Particle
+        asteroidExplosionUsedGameObject.SetActive(false);
+        asteroidExplosionUsedGameObject.transform.position = transform.position;
+    }
+    #endregion
     #region Weak Enemys
     public void EnemyMoonGameObjectRetrieve(Vector3 spawnPoint)
     {
         // Reset bool for later change
         enemyMoonGameObjectNoAvailableObject = true;
         // Check every pooled object
-        for (int i = 0; i < enemyMoonGameObjectPool.Count; i++)
+        for (int i = 0; i < enemyAsteroidGameObjectPool.Count; i++)
         {
             // Check if object is deactivated
-            if (!enemyMoonGameObjectPool[i].activeInHierarchy)
+            if (!enemyAsteroidGameObjectPool[i].activeInHierarchy)
             {
                 // Reactivating Enemy MoonGame Object
                 //Debug.Log("Reactivating Enemy MoonGame Object Element (" + i + ")");
@@ -171,21 +236,68 @@ public class SpawnManager : MonoBehaviour
         if (enemyMoonGameObjectNoAvailableObject == true)
         {
             // Instantiating Impact Particle 
-            //Debug.Log("Instantiating Enemy MoonGame Object Element (" + enemyMoonGameObjectPool.Count + ")");
+            //Debug.Log("Instantiating Enemy MoonGame Object Element (" + enemyAsteroidGameObjectPool.Count + ")");
             // Adds a clone of public game object to the pool
-            enemyMoonGameObjectPool.Add(GameObject.Instantiate(enemyMoonGameObject, spawnPoint, Quaternion.identity));
+            enemyAsteroidGameObjectPool.Add(GameObject.Instantiate(enemyMoonGameObject, spawnPoint, Quaternion.identity));
             // Controls the transportation, activeation & deactivation
-            StartCoroutine(EnemyMoonGameObjectBirth(enemyMoonGameObjectPool.Count - 1, spawnPoint));
+            StartCoroutine(EnemyMoonGameObjectBirth(enemyAsteroidGameObjectPool.Count - 1, spawnPoint));
         }
     }
     // Function with timed cooldown requires the effected Int GameObject & Vector3 transform position 
     IEnumerator EnemyMoonGameObjectBirth(int enemyMoonGameObjectUsedGameObject, Vector3 spawnPoint)
     {
         //Gives enemy a downward velocity
-        enemyMoonGameObjectPool[enemyMoonGameObjectUsedGameObject].GetComponent<Rigidbody>().velocity = Vector3.down * 50;
+        enemyAsteroidGameObjectPool[enemyMoonGameObjectUsedGameObject].GetComponent<Rigidbody>().velocity = Vector3.down * 50;
         // Transfers position to Enemy MoonGame Object vector & activates Impact Particle 
-        enemyMoonGameObjectPool[enemyMoonGameObjectUsedGameObject].transform.position = spawnPoint + enemyMoonSpawnHight;
-        enemyMoonGameObjectPool[enemyMoonGameObjectUsedGameObject].SetActive(true);
+        enemyAsteroidGameObjectPool[enemyMoonGameObjectUsedGameObject].transform.position = spawnPoint + enemyMoonSpawnHight;
+        enemyAsteroidGameObjectPool[enemyMoonGameObjectUsedGameObject].SetActive(true);
+        //moonScript = enemyAsteroidGameObjectPool[enemyMoonGameObjectUsedGameObject].GetComponent<MoonScript>();
+        //Birth script needs to disable the disable movment bool
+        // Time between top and bottom Function
+        yield return new WaitForSeconds(0);
+    }
+
+    public void EnemyAsteroidGameObjectRetrieve(Vector3 spawnPoint, int enemyLevel)
+    {
+        // Reset bool for later change
+        enemyAsteroidGameObjectNoAvailableObject = true;
+        // Check every pooled object
+        for (int i = 0; i < enemyAsteroidGameObjectPool.Count; i++)
+        {
+            // Check if object is deactivated
+            if (!enemyAsteroidGameObjectPool[i].activeInHierarchy)
+            {
+                // Reactivating Enemy MoonGame Object
+                //Debug.Log("Reactivating Enemy MoonGame Object Element (" + i + ")");
+                // Controls the transportation, activeation & deactivation 
+                StartCoroutine(EnemyAsteroidGameObjectBirth(i, spawnPoint, enemyLevel));
+                // Set bool false stopping next step from Instantiating new game object in pool
+                enemyAsteroidGameObjectNoAvailableObject = false;
+                //Ends function
+                break;
+            }
+        }
+        // checks bool if Enemy MoonGame Object was inabled, if not Instantiate new Enemy MoonGame Object in pool
+        if (enemyAsteroidGameObjectNoAvailableObject == true)
+        {
+            // Instantiating Impact Particle 
+            //Debug.Log("Instantiating Enemy MoonGame Object Element (" + enemyMoonGameObjectPool.Count + ")");
+            // Adds a clone of public game object to the pool
+            enemyAsteroidGameObjectPool.Add(GameObject.Instantiate(enemyAsteroidGameObject, spawnPoint, Quaternion.identity));
+            // Controls the transportation, activeation & deactivation
+            StartCoroutine(EnemyAsteroidGameObjectBirth(enemyAsteroidGameObjectPool.Count - 1, spawnPoint, enemyLevel));
+        }
+    }
+    // Function with timed cooldown requires the effected Int GameObject & Vector3 transform position 
+    IEnumerator EnemyAsteroidGameObjectBirth(int enemyAsteroidGameObjectUsedGameObject, Vector3 spawnPoint, int enemyLevel)
+    {
+        //Gives enemy a downward velocity
+        //enemyAsteroidGameObjectPool[enemyAsteroidGameObjectUsedGameObject].GetComponent<Rigidbody>().velocity = Vector3.down * 50;
+        // Transfers position to Enemy MoonGame Object vector & activates Impact Particle 
+        enemyAsteroidGameObjectPool[enemyAsteroidGameObjectUsedGameObject].transform.position = spawnPoint + enemyAsteroidSpawnHight;
+        enemyAsteroidGameObjectPool[enemyAsteroidGameObjectUsedGameObject].GetComponent<AsteroidScript>().enemyLevel = enemyLevel;
+        enemyAsteroidGameObjectPool[enemyAsteroidGameObjectUsedGameObject].SetActive(true);
+        enemyAsteroidGameObjectPool[enemyAsteroidGameObjectUsedGameObject].transform.localScale = Vector3.one * (0.5f + 0.5f * enemyLevel);
         //moonScript = enemyMoonGameObjectPool[enemyMoonGameObjectUsedGameObject].GetComponent<MoonScript>();
         //Birth script needs to disable the disable movment bool
         // Time between top and bottom Function
