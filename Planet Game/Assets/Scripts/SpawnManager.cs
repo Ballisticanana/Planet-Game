@@ -38,6 +38,7 @@ public class SpawnManager : MonoBehaviour
     #endregion
 
     //Functions
+    #region Particles
     #region ImpactParticle
     // Function to be called on requiring a Vector3
     public void ImpactParticleRetrieve(Vector3 impactPoint)
@@ -211,7 +212,9 @@ public class SpawnManager : MonoBehaviour
         asteroidExplosionUsedGameObject.transform.position = transform.position;
     }
     #endregion
+    #endregion
     #region Weak Enemys
+    #region Enemy Moon
     public void EnemyMoonGameObjectRetrieve(Vector3 spawnPoint)
     {
         // Reset bool for later change
@@ -256,7 +259,8 @@ public class SpawnManager : MonoBehaviour
         // Time between top and bottom Function
         yield return new WaitForSeconds(0);
     }
-
+    #endregion
+    #region Enemy Asteroid
     public void EnemyAsteroidGameObjectRetrieve(Vector3 spawnPoint, int enemyLevel)
     {
         // Reset bool for later change
@@ -303,5 +307,6 @@ public class SpawnManager : MonoBehaviour
         // Time between top and bottom Function
         yield return new WaitForSeconds(0);
     }
+    #endregion
     #endregion
 }
