@@ -16,6 +16,7 @@ public class AsteroidScript : MonoBehaviour
     public int enemyLevel;
     private bool disableEnemyMovement = false;
     private int priorityInt;
+    private bool canFire = true;
 
     private int savedOtherPriorityInt;
     private int savedOtherEnemyLevel;
@@ -34,19 +35,65 @@ public class AsteroidScript : MonoBehaviour
             var.SetActive(false);
         }
         asteroidShapePool[Random.Range(0, 4)].SetActive(true);
-        transform.localScale = Vector3.one * ((enemyLevel / 3) + 1);
+        transform.localScale = Vector3.one * (0.5f + 0.5f * enemyLevel);
     }
 
     void Update()
     {
-        enemyRb.AddForce((playerRb.position - enemyRb.position).normalized * speed * Time.deltaTime);
+        if(disableEnemyMovement == false)
+        {            
+            if (Vector3.Distance(playerRb.position, enemyRb.position) > 6)
+            {
+                enemyRb.AddForce((playerRb.position - enemyRb.position).normalized * speed * Time.deltaTime * enemyLevel);
+                if (enemyRb.transform.position.y < 6)
+                {
+                    enemyRb.AddForce(Vector3.up * 5);
+                }
+                else if (enemyRb.transform.position.y > 7)
+                {
+                    enemyRb.AddForce(Vector3.down * 5);
+                }
+            }
+            else
+            {
+                if (canFire == true)
+                StartCoroutine(FireAtPlayer());
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("I Should Blow up now");
+            Destroy(gameObject);
+            playerRb.AddForce(new Vector3(Random.Range(-1, 1) + 0.5f, 0, Random.Range(-1, 1) + 0.5f).normalized * enemyLevel * 20, ForceMode.Impulse);
+        }
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            Destroy(gameObject);
+            playerRb.AddExplosionForce(500 * enemyLevel, transform.position, 10);
+            //GameObject.Find("Moon").
+        }
+        if (collision.gameObject.CompareTag("Asteroid"))
+        {
+            savedOtherPriorityInt = collision.gameObject.GetComponent<AsteroidScript>().priorityInt;
+            savedOtherEnemyLevel = collision.gameObject.GetComponent<AsteroidScript>().enemyLevel;
+            if (savedOtherEnemyLevel > enemyLevel)
+            {
+                //do nothing
+            }
+            else if (savedOtherEnemyLevel == enemyLevel && savedOtherPriorityInt > priorityInt)
+            {
+                //do nothing
+            }
+            else if (savedOtherPriorityInt < priorityInt)
+            {
+                enemyLevel = enemyLevel + savedOtherEnemyLevel;
+                transform.localScale = Vector3.one * (0.5f + 0.5f * enemyLevel);
+                collision.gameObject.SetActive(false);
+                spawnManager.EnemyOnEnemyParticleRetrieve(transform.position);
+            }
         }
     }
 
@@ -56,24 +103,12 @@ public class AsteroidScript : MonoBehaviour
         {
             disableEnemyMovement = true;
         }
-
-        if (other.CompareTag("Asteroid"))
-        {
-            savedOtherPriorityInt = other.GetComponent<AsteroidScript>().priorityInt;
-            savedOtherEnemyLevel = other.GetComponent<AsteroidScript>().enemyLevel;
-            if (savedOtherEnemyLevel > enemyLevel)
-            {
-                Destroy(gameObject);
-            }
-            else if (savedOtherEnemyLevel == enemyLevel && savedOtherPriorityInt > priorityInt)
-            {
-                Destroy(gameObject);
-            }
-            else if (savedOtherPriorityInt < priorityInt)
-            {
-                enemyLevel = enemyLevel + savedOtherEnemyLevel;
-                transform.localScale = Vector3.one * (1+enemyLevel/2);
-            }
-        }
+    }
+    public IEnumerator FireAtPlayer()
+    {
+        canFire = false;
+        enemyRb.AddForce((playerRb.position - enemyRb.position).normalized * 20, ForceMode.Impulse);
+        yield return new WaitForSeconds(1);
+        canFire = true;
     }
 }
