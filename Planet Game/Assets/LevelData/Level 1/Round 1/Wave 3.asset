@@ -19,7 +19,9 @@ MonoBehaviour:
   - {x: 12, y: 0, z: 12}
   - {x: -12, y: 0, z: -12}
   sceneObjectsRotation: []
-  sceneObjectsValue: []
+  sceneObjectsValue:
+  - 0
+  - 0
   timeBeforeObject:
   - 0
   - 5

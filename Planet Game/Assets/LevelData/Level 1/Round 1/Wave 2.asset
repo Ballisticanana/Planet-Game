@@ -14,9 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneObjects:
   - E1
+  - E0
   sceneObjectsPosition:
-  - {x: 912.1212, y: 0, z: 912.1212}
+  - {x: 912.1212, y: 6, z: 912.1212}
+  - {x: 912.1212, y: 6, z: 912.1212}
   sceneObjectsRotation: []
-  sceneObjectsValue: []
+  sceneObjectsValue:
+  - 1
+  - 1
   timeBeforeObject:
+  - 0
   - 0

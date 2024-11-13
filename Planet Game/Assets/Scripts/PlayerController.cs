@@ -58,10 +58,12 @@ public class PlayerController : MonoBehaviour
         {
             GameObject.Find("Spawn Manager").GetComponent<SpawnManager>().EnemyMoonGameObjectRetrieve(new Vector3(Random.Range(-10,11),0.75f, Random.Range(-10, 11)));
         }
+
         if (Input.GetKeyDown(KeyCode.G))
         {
             GameObject.Find("Spawn Manager").GetComponent<SpawnManager>().EnemyAsteroidGameObjectRetrieve(new Vector3(Random.Range(-10, 11), 6, Random.Range(-10, 11)), Random.Range(1,5));
         }
+
         if (Input.GetKeyDown(KeyCode.R) || Vector3.Distance(new Vector3(0,0,0), playerRb.transform.position) > 30)
         {
             StartCoroutine("Reset");
@@ -91,9 +93,17 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(spawnManager.EnemyOnEnemyParticleReturnInstant(enemyOnEnemyParticleNumber));
         }
+        foreach (GameObject asteroidExplosionParticleNumber in spawnManager.asteroidExplosionParticlePool)
+        {
+            StartCoroutine(spawnManager.AsteroidExplosionParticleReturnInstant(asteroidExplosionParticleNumber));
+        }
         foreach (GameObject enemyMoonGameObject in spawnManager.enemyMoonGameObjectPool)
         {
             enemyMoonGameObject.GetComponent<MoonScript>().ResetToPool();
+        }
+        foreach (GameObject enemyAsteroidGameObject in spawnManager.enemyAsteroidGameObjectPool)
+        {
+            enemyAsteroidGameObject.GetComponent<AsteroidScript>().ResetToPool();
         }
         playerRb.velocity = Vector3.zero;
         gameCenter.GetComponent<GameCenter>().waveNumber = 0;

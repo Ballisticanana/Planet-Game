@@ -69,7 +69,7 @@ public class GameCenter : MonoBehaviour
         spawnManager = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
         playerRb = GameObject.Find("Player").GetComponent<Rigidbody>();
 
-        //Debug.Log("Level(" + (levelNumber + 1) + ") Round(" + (roundNumber + 1) + " of " + Levels[levelNumber].Rounds.Count + ") Wave(" + (waveNumber + 1) + " of " + Levels[levelNumber].Rounds[roundNumber].Waves.Count + ") " + levelNumber + "/" + roundNumber + "-" + (Levels[levelNumber].Rounds.Count - 1) + "/" + waveNumber + "-" + (Levels[levelNumber].Rounds[roundNumber].Waves.Count - 1));
+        //Debug.Log("Level(" + (levelNumber + 1) + ") Round(" + (roundNumber + 1) + " of " + Levels[levelNumber].Rounds.Count + ") Wave(" + (waveNumber + 1) + " of " + Levels[levelNumber].Rounds[roundNumber].Waves.Count + ") " + levelNumber + " / " + roundNumber + "-" + (Levels[levelNumber].Rounds.Count - 1) + " / " + waveNumber + "-" + (Levels[levelNumber].Rounds[roundNumber].Waves.Count - 1));
         StartCoroutine("SpawnWave");
     }
     private void Update()
@@ -79,7 +79,7 @@ public class GameCenter : MonoBehaviour
         {
             countingDownTime += checkFrequency;
             //Debug.Log("Running");
-            if (GameObject.FindGameObjectsWithTag("Moon").Length == 0)
+            if (GameObject.FindGameObjectsWithTag("Moon").Length + GameObject.FindGameObjectsWithTag("Asteroid").Length == 0)
             {
                 doubleCheck += checkFrequency;
             }
@@ -109,7 +109,7 @@ public class GameCenter : MonoBehaviour
         {
             playerRb.transform.position = new Vector3(0, 0.75f, 0);
         }
-        //Debug.Log("Spawning Wave!!!");
+        Debug.Log("Spawning Wave!!! Level(" + (levelNumber + 1) + ") Round(" + (roundNumber + 1) + " of " + Levels[levelNumber].Rounds.Count + ") Wave(" + (waveNumber + 1) + " of " + Levels[levelNumber].Rounds[roundNumber].Waves.Count + ") " + (levelNumber+1) + " / " + (roundNumber+1) + "-" + (Levels[levelNumber].Rounds.Count) + " / " + (waveNumber+1) + "-" + (Levels[levelNumber].Rounds[roundNumber].Waves.Count));
         for (int i = 0; i < Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjects.Count; i++)
         {
             if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].timeBeforeObject.Count == i)
@@ -120,6 +120,7 @@ public class GameCenter : MonoBehaviour
             #region Random Position Builder
             if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].x > 900 || Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].y > 900 || Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].z > 900)
             {
+                #region random position
                 if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].x > 900)
                 {
                     RandomPositionGeneratorX(i);
@@ -149,10 +150,12 @@ public class GameCenter : MonoBehaviour
                 {
                     finalVector.z = Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i].z;
                 }
+                #endregion
 
                 if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjects[i] == "E0")
                 {
                     //Debug.Log("Enemy 0");
+                    spawnManager.EnemyAsteroidGameObjectRetrieve(finalVector, (int) Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsValue[i]);
                 }
                 if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjects[i] == "E1")
                 {
@@ -186,6 +189,7 @@ public class GameCenter : MonoBehaviour
                 if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjects[i] == "E0")
                 {
                     Debug.Log("Enemy 0");
+                    spawnManager.EnemyAsteroidGameObjectRetrieve(Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsPosition[i], (int)Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjectsValue[i]);
                 }
                 if (Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjects[i] == "E1")
                 {

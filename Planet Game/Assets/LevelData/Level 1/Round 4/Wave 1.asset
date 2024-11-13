@@ -12,12 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89d7bfd875e44fa42b44aaf7e714f6c2, type: 3}
   m_Name: Wave 1
   m_EditorClassIdentifier: 
-  sceneObjects: []
+  sceneObjects:
+  - E0
+  - E0
+  - E0
+  - E0
   sceneObjectsPosition:
-  - {x: 12, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  - {x: 12, y: 6, z: 12}
+  - {x: -12, y: 6, z: -12}
+  - {x: 12, y: 6, z: -12}
+  - {x: -12, y: 6, z: 12}
   sceneObjectsRotation: []
-  sceneObjectsValue: []
+  sceneObjectsValue:
+  - 4
+  - 4
+  - 4
+  - 4
   timeBeforeObject:
-  - 0
-  - 0
+  - 1
+  - 1
+  - 1
+  - 1

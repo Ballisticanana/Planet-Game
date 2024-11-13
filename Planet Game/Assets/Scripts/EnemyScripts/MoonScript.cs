@@ -142,6 +142,7 @@ public class MoonScript : MonoBehaviour
                 //Debug.Log("enemys hit");
                 spawnManager.EnemyOnEnemyParticleRetrieve((otherEnemyRb.transform.position + enemyRb.transform.position) / 2);
                 ResetToPool();
+                GameObject.Find("Spawn Manager").GetComponent<SpawnManager>().EnemyAsteroidGameObjectRetrieve(enemyRb.transform.position + new Vector3(0,-5,0), Random.Range(1,3));
             }
         }
         if (collision.gameObject.CompareTag("Ground") && disableEnemyMovement == true && transform.position.y > 0)

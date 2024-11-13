@@ -16,11 +16,13 @@ public class AsteroidScript : MonoBehaviour
     public bool disableEnemyMovement = false;
     public int priorityInt;
     public bool canFire = true;
+    public float canFireTimeFix = 0;
 
     private int savedOtherPriorityInt;
     private int savedOtherEnemyLevel;
 
     public List<GameObject> asteroidShapePool;
+    public List<GameObject> tempList;
 
     void Start()
     {
@@ -59,20 +61,40 @@ public class AsteroidScript : MonoBehaviour
                 StartCoroutine(FireAtPlayer());
             }
         }
+        #region Can Fire Fix
+        if (canFire == false)
+        {
+            canFireTimeFix -= Time.deltaTime;
+        }
+        else if(canFire == true && canFireTimeFix != 2)
+        {
+            canFireTimeFix = 2;
+        }
+        if(canFireTimeFix < 0)
+        { 
+            canFire = true;
+        }
+        #endregion
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            spawnManager.AsteroidExplosionParticleRetrieve((playerRb.transform.position + enemyRb.transform.position)/2);
+            spawnManager.AsteroidExplosionParticleRetrieve(((playerRb.transform.position + enemyRb.transform.position)/2), enemyLevel);
             ResetToPool();
             playerRb.AddForce(new Vector3(Random.Range(-1, 1) + 0.5f, 0, Random.Range(-1, 1) + 0.5f).normalized * enemyLevel * 20, ForceMode.Impulse);
         }
         if (collision.gameObject.CompareTag("Ground"))
         {
             playerRb.AddExplosionForce(500 * enemyLevel, transform.position, 10);
-            spawnManager.AsteroidExplosionParticleRetrieve(enemyRb.transform.position);
+            Rigidbody[] everythingWithRb;
+            everythingWithRb = FindObjectsOfType<Rigidbody>();
+            foreach(Rigidbody var in everythingWithRb)
+            {
+                var.AddExplosionForce(500 * enemyLevel, transform.position, 8 + 2*enemyLevel);
+            }
+            spawnManager.AsteroidExplosionParticleRetrieve(enemyRb.transform.position, enemyLevel);
             ResetToPool();
         }
         if (collision.gameObject.CompareTag("Asteroid"))

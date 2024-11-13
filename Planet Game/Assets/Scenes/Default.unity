@@ -543,7 +543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   veiwedLevelNumber: 1
-  veiwedRoundNumber: 4
+  veiwedRoundNumber: 1
   veiwedWaveNumber: 1
   moonsAreInGame: 0
   levelNumber: 0
@@ -1187,6 +1187,10 @@ PrefabInstance:
       value: Moon
       objectReference: {fileID: 0}
     - target: {fileID: 6533047295771650793, guid: 4625d70a6f40ef04f90e378504a0b04e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533047295771650793, guid: 4625d70a6f40ef04f90e378504a0b04e, type: 3}
       propertyPath: m_TagString
       value: Moon
       objectReference: {fileID: 0}
@@ -1660,7 +1664,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &2038932170
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1790,67 +1794,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!1001 &5059875023323116068
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5363840978225082635, guid: f9466a4e9d4379e4e9004d522d861eda, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 11.16
-      objectReference: {fileID: 0}
-    - target: {fileID: 5363840978225082635, guid: f9466a4e9d4379e4e9004d522d861eda, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.98
-      objectReference: {fileID: 0}
-    - target: {fileID: 5363840978225082635, guid: f9466a4e9d4379e4e9004d522d861eda, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5363840978225082635, guid: f9466a4e9d4379e4e9004d522d861eda, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5363840978225082635, guid: f9466a4e9d4379e4e9004d522d861eda, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5363840978225082635, guid: f9466a4e9d4379e4e9004d522d861eda, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5363840978225082635, guid: f9466a4e9d4379e4e9004d522d861eda, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5363840978225082635, guid: f9466a4e9d4379e4e9004d522d861eda, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5363840978225082635, guid: f9466a4e9d4379e4e9004d522d861eda, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5363840978225082635, guid: f9466a4e9d4379e4e9004d522d861eda, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6271700403738387676, guid: f9466a4e9d4379e4e9004d522d861eda, type: 3}
-      propertyPath: m_Name
-      value: Asteroid
-      objectReference: {fileID: 0}
-    - target: {fileID: 8466667741276180670, guid: f9466a4e9d4379e4e9004d522d861eda, type: 3}
-      propertyPath: m_AngularDrag
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f9466a4e9d4379e4e9004d522d861eda, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1865,6 +1808,5 @@ SceneRoots:
   - {fileID: 1737391931}
   - {fileID: 1125962025}
   - {fileID: 532390723}
-  - {fileID: 5059875023323116068}
   - {fileID: 2038932173}
   - {fileID: 1640458735}
