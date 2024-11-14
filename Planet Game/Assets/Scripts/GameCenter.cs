@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using TMPro;
 
 public class GameCenter : MonoBehaviour
 {
@@ -52,6 +53,7 @@ public class GameCenter : MonoBehaviour
     public int roundNumber;
     public int waveNumber;
 
+    public TextMeshProUGUI Level;
 
     private float countingDownTime;
     public float doubleCheck;
@@ -109,6 +111,7 @@ public class GameCenter : MonoBehaviour
         {
             playerRb.transform.position = new Vector3(0, 0.75f, 0);
         }
+        Level.text = ("Level(" + (levelNumber + 1) + ") Round(" + (roundNumber + 1) + " of " + Levels[levelNumber].Rounds.Count + ") Wave(" + (waveNumber + 1) + " of " + Levels[levelNumber].Rounds[roundNumber].Waves.Count + ") ");
         Debug.Log("Spawning Wave!!! Level(" + (levelNumber + 1) + ") Round(" + (roundNumber + 1) + " of " + Levels[levelNumber].Rounds.Count + ") Wave(" + (waveNumber + 1) + " of " + Levels[levelNumber].Rounds[roundNumber].Waves.Count + ") " + (levelNumber+1) + " / " + (roundNumber+1) + "-" + (Levels[levelNumber].Rounds.Count) + " / " + (waveNumber+1) + "-" + (Levels[levelNumber].Rounds[roundNumber].Waves.Count));
         for (int i = 0; i < Levels[levelNumber].Rounds[roundNumber].Waves[waveNumber].sceneObjects.Count; i++)
         {

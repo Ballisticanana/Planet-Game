@@ -22,7 +22,6 @@ public class AsteroidScript : MonoBehaviour
     private int savedOtherEnemyLevel;
 
     public List<GameObject> asteroidShapePool;
-    public List<GameObject> tempList;
 
     void Start()
     {
@@ -41,7 +40,7 @@ public class AsteroidScript : MonoBehaviour
 
     void Update()
     {
-        if(disableEnemyMovement == false)
+        if (disableEnemyMovement == false)
         {            
             if (Vector3.Distance(playerRb.position, enemyRb.position) > 6)
             {
@@ -124,7 +123,14 @@ public class AsteroidScript : MonoBehaviour
         if (other.CompareTag("Under Platform"))
         {
             disableEnemyMovement = true;
+            StartCoroutine(WaitTwoSeconds());
         }
+    }
+    public IEnumerator WaitTwoSeconds()
+    {
+        yield return new WaitForSeconds(2);
+        spawnManager.AsteroidExplosionParticleRetrieve(enemyRb.transform.position, enemyLevel);
+        ResetToPool();
     }
     public IEnumerator FireAtPlayer()
     {
