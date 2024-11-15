@@ -154,6 +154,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 8aa4a8814028a42fea37772e41f89781, type: 3}
   m_PrefabInstance: {fileID: 1993238745}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &303846741 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6533047295771650793, guid: 4625d70a6f40ef04f90e378504a0b04e, type: 3}
+  m_PrefabInstance: {fileID: 1640458735}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &422126422
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,7 +363,8 @@ MonoBehaviour:
   asteroidExplosionParticleGameObject: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
   asteroidExplosionParticlePool: []
   enemyMoonGameObject: {fileID: 6533047295771650793, guid: 4625d70a6f40ef04f90e378504a0b04e, type: 3}
-  enemyMoonGameObjectPool: []
+  enemyMoonGameObjectPool:
+  - {fileID: 303846741}
   enemyAsteroidGameObject: {fileID: 6271700403738387676, guid: f9466a4e9d4379e4e9004d522d861eda, type: 3}
   enemyAsteroidGameObjectPool: []
 --- !u!1001 &734457621
@@ -543,8 +549,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   veiwedLevelNumber: 1
-  veiwedRoundNumber: 1
-  veiwedWaveNumber: 1
+  veiwedRoundNumber: 4
+  veiwedWaveNumber: 3
   moonsAreInGame: 0
   levelNumber: 0
   roundNumber: 0
@@ -1359,7 +1365,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6533047295771650793, guid: 4625d70a6f40ef04f90e378504a0b04e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6533047295771650793, guid: 4625d70a6f40ef04f90e378504a0b04e, type: 3}
       propertyPath: m_TagString
@@ -1849,8 +1855,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 20.859985}
-  m_SizeDelta: {x: 559.67, y: 50}
+  m_AnchoredPosition: {x: 1.5, y: 20.859985}
+  m_SizeDelta: {x: 750, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2028950593
 MonoBehaviour:
@@ -1906,7 +1912,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1969,7 +1975,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!135 &2038932170
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2072,6 +2078,14 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 785a85c72ee2045db9591e4a9a7fbbeb, type: 3}
   - {fileID: 2800000, guid: 2f1708834aabb4bd582abee7638e4da5, type: 3}
   - {fileID: 2800000, guid: d5c9344e016b14b5f9fae5f0d703b15c, type: 3}
+  readyForNewPosition: 0
+  attackPosition: {x: 0, y: 0, z: 0}
+  moveToNewPosition: 0
+  moveForce: 100000
+  slowRait: 1.00005
+  atAttackPosition: 0
+  inAttackCharge: 0
+  enemySwapVectorDirection: {x: 0, y: 0, z: 0}
 --- !u!54 &2038932175
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2080,7 +2094,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2038932169}
   serializedVersion: 4
-  m_Mass: 100
+  m_Mass: 500
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}

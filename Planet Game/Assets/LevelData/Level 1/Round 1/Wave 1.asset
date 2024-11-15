@@ -15,7 +15,7 @@ MonoBehaviour:
   sceneObjects:
   - E1
   sceneObjectsPosition:
-  - {x: 16, y: 899, z: 0}
+  - {x: 16, y: 200, z: 0}
   sceneObjectsRotation: []
   sceneObjectsValue:
   - 0
