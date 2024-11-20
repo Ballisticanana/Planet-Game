@@ -2078,11 +2078,12 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 785a85c72ee2045db9591e4a9a7fbbeb, type: 3}
   - {fileID: 2800000, guid: 2f1708834aabb4bd582abee7638e4da5, type: 3}
   - {fileID: 2800000, guid: d5c9344e016b14b5f9fae5f0d703b15c, type: 3}
+  stage: 1
   readyForNewPosition: 0
   attackPosition: {x: 0, y: 0, z: 0}
   moveToNewPosition: 0
   moveForce: 100000
-  slowRait: 1.00005
+  slowRait: 600000
   atAttackPosition: 0
   inAttackCharge: 0
   enemySwapVectorDirection: {x: 0, y: 0, z: 0}
@@ -2095,7 +2096,7 @@ Rigidbody:
   m_GameObject: {fileID: 2038932169}
   serializedVersion: 4
   m_Mass: 500
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}

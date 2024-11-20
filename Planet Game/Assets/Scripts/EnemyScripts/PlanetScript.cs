@@ -12,6 +12,7 @@ public class PlanetScript : MonoBehaviour
     private Renderer m_Renderer;
     public List<Texture> texturePool;
 
+    public int stage;
     public bool readyForNewPosition;
     public Vector3 attackPosition;
     public bool moveToNewPosition;
@@ -35,31 +36,37 @@ public class PlanetScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (readyForNewPosition == true)
+        if (stage == 1)
         {
             enemySwapVectorDirection = new Vector3(-playerRb.position.x / Mathf.Abs(playerRb.position.x), playerRb.position.y, -playerRb.position.z / Mathf.Abs(playerRb.position.z));
             attackPosition = new Vector3(Random.Range(5, 13) * enemySwapVectorDirection.x, playerRb.position.y, Random.Range(5, 13) * enemySwapVectorDirection.z);
-            readyForNewPosition = false;
-            moveToNewPosition = true;
+            stage = 2;
         }
-        if (readyForNewPosition == false && moveToNewPosition == true)
+        if (stage == 2)
         {
             enemyRb.AddForce((attackPosition - enemyRb.position).normalized * moveForce * Time.deltaTime);
         }
-        if (readyForNewPosition == false && Vector3.Distance(enemyRb.position, attackPosition) < 1)
+        if (stage == 2 && Vector3.Distance(enemyRb.position, attackPosition) < 1)
         {
             // fix slow rait
-            enemyRb.velocity = enemyRb.velocity * Time.deltaTime / slowRait;
-            if (enemyRb.velocity == Vector3.zero)
+            enemyRb.velocity = enemyRb.velocity / 1.02f;
+            if (enemyRb.velocity.magnitude < 0.1f)
             {
-                atAttackPosition = true;
-                moveToNewPosition = false;
+                enemyRb.velocity = Vector3.zero;
+                stage = 3;
             }
         }
-        if (readyForNewPosition == false && moveToNewPosition == false && atAttackPosition == true)
+        if (stage == 3)
         {
-            enemyRb.transform.LookAt(playerRb.position);
+
+            var tempV = Quaternion.LookRotation(playerRb.transform.position - transform.position);
+            transform.rotation = Quaternion.Lerp(transform.rotation, tempV, 40000000 * Time.deltaTime);
+            //transform.rotation.x, tempV.y, transform.rotation.z
+            Debug.DrawLine(enemyRb.position, playerRb.position, Color.cyan);
+            //enemyRb.transform.LookAt(playerRb.position);
+
+            //  enemyRb.transform.LookAt(playerRb.position);
         }
-        
+
     }
 }
